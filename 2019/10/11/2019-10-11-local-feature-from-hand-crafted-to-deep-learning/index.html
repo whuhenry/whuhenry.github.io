@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="1. 基本信息  Csurka, G., Dance, C. R., &amp; Humenberger, M. (2018). From handcrafted to deep local features, 1–41. Retrieved from http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1807.10254    A local feature consists of a keypoint">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章">
+<meta property="og:url" content="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="1. 基本信息  Csurka, G., Dance, C. R., &amp; Humenberger, M. (2018). From handcrafted to deep local features, 1–41. Retrieved from http:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1807.10254    A local feature consists of a keypoint">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/1570522005443.png">
+<meta property="og:image" content="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/1570526724971.png">
+<meta property="article:published_time" content="2019-10-11T07:24:57.000Z">
+<meta property="article:modified_time" content="2020-12-29T15:56:17.415Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="摄影测量">
+<meta property="article:tag" content="论文笔记">
+<meta property="article:tag" content="特征点">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/1570522005443.png">
+
+
+<link rel="canonical" href="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章 | 成长印记</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-text">1. 基本信息</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-11 15:24:57" itemprop="dateCreated datePublished" datetime="2019-10-11T15:24:57+08:00">2019-10-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-29 23:56:17" itemprop="dateModified" datetime="2020-12-29T23:56:17+08:00">2020-12-29</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">论文笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="1-基本信息">1. 基本信息</h2>
+<blockquote>
+<p>Csurka, G., Dance, C. R., &amp; Humenberger, M. (2018). From handcrafted to deep local features, 1–41. Retrieved from <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1807.10254">http://arxiv.org/abs/1807.10254</a></p>
+</blockquote>
+<ol>
+<li>
+<p>A <strong>local feature</strong> consists of a keypoint detector and its descriptor.</p>
+</li>
+<li>
+<p>The precise location of local features is important for 3D reconstruction. Ideally, if there is no error in local feature, 3D reconstruction is pretty simple and poses of all photos can be calculated without error.</p>
+</li>
+<li>
+<p>在所有与几何相关的计算机视觉领域，包括但不限于SFM、VSLAM、Motion Tracking、image stitching、3D reconstruction，特征点提取和描述都是首先要解决的基本问题</p>
+<a id="more"></a>
+</li>
+<li>
+<p>在更加广泛的Local feature定义中，根据其设计来解决问题的不同，Local feature分类<strong>三大类</strong>：</p>
+<ul>
+<li>具有特定的语义信息的点，如道路提取、或者纯净图像中的噪点等等</li>
+<li>具有几何和光照不变性的点（Ideally, such local features (<strong>detector</strong>) should be robust to variations in <em>viewpoint</em> (geometric deformations) and <em>lighting</em> (photometric changes，and the <strong>descriptors</strong> should be <em>distinctive</em>)）</li>
+<li>为了图像的Robust description，从而可以在统计意义上来描述图像中的object和scenes</li>
+</ul>
+</li>
+<li>
+<p>One figure that describe the whole process and how descriptor can be invariant to projective transformation( Compute the descriptor on normalized patches).</p>
+</li>
+</ol>
+<p><img src="1570522005443.png" alt="1570522005443"></p>
+<ol start="6">
+<li>
+<p>Nevertheless, most local features are only <strong>rotation and scale invariant</strong>(也就是没有更加复杂的单应变换的不变性，比如放射变换中的斜切或者其他情况)</p>
+</li>
+<li>
+<p>it is often possible to pair the detector from one local feature with the descriptor from another.（Detector 和 Descriptor 的杂交）</p>
+</li>
+<li>
+<p>Hand crafted detector may be based on corners, intensity derivatives, segmentation, mathematical morphology. <strong>SIFT and SURF</strong> are intensity-derivative-based methods, **MSER(**maximally stable extremal regions) are segmentation-based. FAST is mathematical-morphology-based method (compare the intensities on the circle and the center one) and used as detector for ORB method.</p>
+</li>
+<li>
+<p>Benchmark for local feature<img src="1570526724971.png" alt="1570526724971"></p>
+</li>
+<li>
+<p>different type of learned detector:</p>
+</li>
+</ol>
+<ul>
+<li>learn to <strong>speed up</strong> detection while finding the same keypoint of handcrafted methods</li>
+<li>learn the <strong>matchability</strong> of handcrafted keypoint</li>
+<li>learn to improve detector <strong>repeatability</strong> by train the network to have a bias for different task using a collection of standard keypoint (比如对于城市环境图像，学习方法能够提取出来更多的规则人造物的角点)</li>
+<li><strong>TILDE</strong>(2015)：能够对剧烈的光照变化保证较好的特征点重复性，使用LeNet对序列图像进行训练，评价相邻帧间相近位置点是同名点的可能性，然后生成一张图，每个点的数值标识该点是特征点的可能性。</li>
+</ul>
+<ol start="11">
+<li>
+<p>测试集：wide multiple baseline stereo (WXBS) dataset:每个相对人工选择大概20对同名点作为GroundTruth，甚至包含了可见光-多光谱-红外等多种不同成像传感器的图像。同时通过该测试集的对比发现，大多数的Descriptor的性能随着Photometric Normalization都能得到提升。</p>
+</li>
+<li>
+<p>评价标准：(详细解释参见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/honyniu/article/details/87923219">https://blog.csdn.net/honyniu/article/details/87923219</a>)</p>
+</li>
+</ol>
+<ul>
+<li>repeatability: Lenc and Vedaldi [2018] 对detector的repeatability计算做了改进，修正了一个错误，同时，保证在探测不同数量的特征点的条件下repeatability的稳定性</li>
+<li>mAP(mean average precisions)</li>
+<li>matching score</li>
+</ul>
+<ol start="13">
+<li>评价的三种典型应用场景：(详细解释参见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/honyniu/article/details/87923219">https://blog.csdn.net/honyniu/article/details/87923219</a>)</li>
+</ol>
+<ul>
+<li>patch verification task: 具体是指给定一对patch，判断是否匹配</li>
+<li>image matching task:测试描述符能否在两张图像对应。一对图像是经过各种变换的，判断一张图像的patch是否对应另一张图像的patch。置信度分数。</li>
+<li>patch retrieval task:找到近似patch。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/" title="论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章">http://example.com/2019/10/11/2019-10-11-local-feature-from-hand-crafted-to-deep-learning/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%91%84%E5%BD%B1%E6%B5%8B%E9%87%8F/" rel="tag"># 摄影测量</a>
+              <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag"># 论文笔记</a>
+              <a href="/tags/%E7%89%B9%E5%BE%81%E7%82%B9/" rel="tag"># 特征点</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/09/27/2019-09-28-slam-status-wufan/" rel="prev" title="论文笔记5-视觉slam的研究现状与展望">
+                  <i class="fa fa-chevron-left"></i> 论文笔记5-视觉slam的研究现状与展望
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/05/30/2020-05-30-introduction-to-aviris-dataset/" rel="next" title="AVIRIS 简介">
+                  AVIRIS 简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+</body>
+</html>
