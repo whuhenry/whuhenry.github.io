@@ -1,13 +1,14 @@
 ---
 title: AVIRIS反射率数据简介
-date: 2020-05-31 21:10:48
 categories: 高光谱
 tags:
-	- 高光谱
-	- 数据集
-	- AVIRIS
+  - 高光谱
+  - 数据集
+  - AVIRIS
 typora-root-url: 2020-05-31-AVIRIS-reflectance-data-introduction
 mathjax: true
+abbrlink: de885869
+date: 2020-05-31 21:10:48
 ---
 
 {% note info %}

@@ -1,13 +1,14 @@
 ---
 title: 论文笔记：单杰.光束法平差简史与概要.2018
-date: 2019-05-06 15:24:56
 categories: 论文笔记
 tags:
-	- 摄影测量
-	- 论文笔记
-	- 光束法平差
+  - 摄影测量
+  - 论文笔记
+  - 光束法平差
 typora-root-url: 2019-05-06-paper-note-光束法平差简史与概要
 mathjax: true
+abbrlink: ce0b80af
+date: 2019-05-06 15:24:56
 ---
 
 ## 1. 基本信息

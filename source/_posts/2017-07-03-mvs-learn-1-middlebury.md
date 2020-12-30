@@ -1,11 +1,14 @@
 ---
-title: MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms》
+title: >-
+  MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo
+  Reconstruction Algorithms》
 categories: MVS学习笔记
-date: 2017-07-03 21:30:33
 tags:
-	- MVS
-	- 经典文献
-	- 学习笔记
+  - MVS
+  - 经典文献
+  - 学习笔记
+abbrlink: 40a4b471
+date: 2017-07-03 21:30:33
 ---
 
 ## 1. 前言

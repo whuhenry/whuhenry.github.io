@@ -1,13 +1,14 @@
 ---
 title: AVIRIS 简介
-date: 2020-05-30 21:13:38
 categories: 高光谱
 tags:
-	- 高光谱
-	- 数据集
-	- AVIRIS
+  - 高光谱
+  - 数据集
+  - AVIRIS
 typora-root-url: 2020-05-30-introduction-to-aviris-dataset
 mathjax: true
+abbrlink: 305711eb
+date: 2020-05-30 21:13:38
 ---
 
 {% note info %}

@@ -1,13 +1,14 @@
 ---
 title: 论文笔记 - Scanning Photogrammetry for Measuring Large Targets in Close Range
-date: 2019-04-29 14:11:33
 categories: 论文笔记
 tags:
-	- 近景摄影测量
-	- 旋转扫描
-	- 大目标
-	- 论文笔记
+  - 近景摄影测量
+  - 旋转扫描
+  - 大目标
+  - 论文笔记
 typora-root-url: 2019-04-29-Scanning-Photogrammetry-for-Measuring-Large-Targets-in-Close-Range
+abbrlink: 5cc48b90
+date: 2019-04-29 14:11:33
 ---
 
 ##  1.  近景旋转面阵图像拼接和相对定向方法

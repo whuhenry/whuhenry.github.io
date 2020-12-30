@@ -1,12 +1,13 @@
 ---
 title: 论文笔记5-视觉slam的研究现状与展望
-date: 2019-09-27 15:24:57
 categories: 论文笔记
 tags:
-	- 摄影测量
-	- 论文笔记
-	- SLAM
+  - 摄影测量
+  - 论文笔记
+  - SLAM
 typora-root-url: 2019-09-28-slam-status-wufan
+abbrlink: ec1e3c40
+date: 2019-09-27 15:24:57
 ---
 
 ## 1. 基本信息

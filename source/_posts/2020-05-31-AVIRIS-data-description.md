@@ -1,13 +1,14 @@
 ---
 title: AVIRIS数据描述简介
-date: 2020-05-31 17:38:42
 categories: 高光谱
 tags:
-	- 高光谱
-	- 数据集
-	- AVIRIS
+  - 高光谱
+  - 数据集
+  - AVIRIS
 typora-root-url: 2020-05-31-AVIRIS-data-description
 mathjax: true
+abbrlink: a2c9f775
+date: 2020-05-31 17:38:42
 ---
 
 {% note info %}

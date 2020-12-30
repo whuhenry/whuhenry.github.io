@@ -1,12 +1,13 @@
 ---
 title: 论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章
-date: 2019-10-11 15:24:57
 categories: 论文笔记
 tags:
-	- 摄影测量
-	- 论文笔记
-	- 特征点
+  - 摄影测量
+  - 论文笔记
+  - 特征点
 typora-root-url: 2019-10-11-local-feature-from-hand-crafted-to-deep-learning
+abbrlink: 4ff4d618
+date: 2019-10-11 15:24:57
 ---
 
 ## 1. 基本信息

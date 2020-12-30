@@ -1,12 +1,13 @@
 ---
-title: 论文笔记4- SuperPoint:使用自监督的方法进行兴趣点检测和描述的方法
-date: 2019-09-27 15:24:56
+title: '论文笔记4- SuperPoint:使用自监督的方法进行兴趣点检测和描述的方法'
 categories: 论文笔记
 tags:
-	- 摄影测量
-	- 论文笔记
-	- 特征点
+  - 摄影测量
+  - 论文笔记
+  - 特征点
 typora-root-url: 2019-09-27-SuperPoint
+abbrlink: a3923764
+date: 2019-09-27 15:24:56
 ---
 
 ## 1. 基本信息
