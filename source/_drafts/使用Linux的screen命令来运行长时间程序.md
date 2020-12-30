@@ -5,7 +5,7 @@ tags:
 	- Linux
 	- screen
 	- 深度学习
-typora-root-url: linux-screen-for-long-time-process
+typora-root-url: 使用Linux的screen命令来运行长时间程序
 ---
 
 {% note info %}

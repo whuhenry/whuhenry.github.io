@@ -11,5 +11,5 @@ tags:
     - 远程桌面
     - RDP
     - xRDP
-typora-root-url: gnome-bug-undismissable-unclickable-authentication-dialog
+typora-root-url: GnomeBug无法点击永不消逝的授权对话框
 ---
