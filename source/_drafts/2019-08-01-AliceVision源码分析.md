@@ -1,14 +1,15 @@
 ---
 title: AliceVision源码分析——深度图（depthMap）生成模块初探
-date: 2019-08-01 17:55:58
 categories: MVS学习笔记
 tags:
-	- AliceVision
-	- 三维重建
-	- 源码分析
-	- Depth Map
+  - AliceVision
+  - 三维重建
+  - 源码分析
+  - Depth Map
 typora-root-url: 2019-08-01-AliceVision源码分析
 mathjax: true
+abbrlink: faa1b167
+date: 2019-08-01 17:55:58
 ---
 
 {% note info %}

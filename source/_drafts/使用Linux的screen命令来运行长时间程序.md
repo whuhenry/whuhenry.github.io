@@ -2,10 +2,11 @@
 title: 使用Linux的screen命令来运行长时间程序
 categories: 计算机
 tags:
-	- Linux
-	- screen
-	- 深度学习
+  - Linux
+  - screen
+  - 深度学习
 typora-root-url: 使用Linux的screen命令来运行长时间程序
+abbrlink: 78c68060
 ---
 
 {% note info %}

@@ -1,13 +1,14 @@
 ---
 title: 论文笔记2：低重叠图像位姿恢复方法
-date: 2019-09-18 11:19:20
 tags:
-	- 摄影测量
-	- 论文笔记
-	- Pose Estimation
+  - 摄影测量
+  - 论文笔记
+  - Pose Estimation
 categories: 论文笔记
 typora-root-url: 2019-09-18-low-coverage-pose-estimation
 mathjax: true
+abbrlink: a4945367
+date: 2019-09-18 11:19:20
 ---
 
 # 1. 背景
