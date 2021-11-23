@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="关于Unit的概念 在pmvs的源代码中，有一个函数是getUnit ，其函数如下（在PMVS2的windows版本代码，optim.cc文件，1184行）： 12345678float Coptim::getUnit(const int index, const Vec4f&amp; coord) const &amp;#123;  const float fz &#x3D; norm(coord - m_f">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PMVS论文随笔（1）">
+<meta property="og:url" content="https://whuhenry.github.io/posts/3e03a1fd/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="关于Unit的概念 在pmvs的源代码中，有一个函数是getUnit ，其函数如下（在PMVS2的windows版本代码，optim.cc文件，1184行）： 12345678float Coptim::getUnit(const int index, const Vec4f&amp; coord) const &amp;#123;  const float fz &#x3D; norm(coord - m_f">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/3e03a1fd/pinhole_camera_geometry.png">
+<meta property="article:published_time" content="2017-11-15T13:02:36.000Z">
+<meta property="article:modified_time" content="2020-12-30T02:43:54.205Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="-PMVS -学习笔记 -三维重建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/3e03a1fd/pinhole_camera_geometry.png">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/3e03a1fd/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;3e03a1fd&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;3e03a1fd&#x2F;&quot;,&quot;title&quot;:&quot;PMVS论文随笔（1）&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>PMVS论文随笔（1） | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eunit%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">关于Unit的概念</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/3e03a1fd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PMVS论文随笔（1）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-15 21:02:36" itemprop="dateCreated datePublished" datetime="2017-11-15T21:02:36+08:00">2017-11-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-30 10:43:54" itemprop="dateModified" datetime="2020-12-30T10:43:54+08:00">2020-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MVS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">MVS学习笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="关于unit的概念">关于Unit的概念</h2>
+<p>在pmvs的源代码中，有一个函数是<code>getUnit</code> ，其函数如下（在PMVS2的windows版本代码，optim.cc文件，1184行）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">Coptim::getUnit</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> index, <span class="keyword">const</span> Vec4f&amp; coord)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">float</span> fz = <span class="built_in">norm</span>(coord - m_fm.m_pss.m_photos[index].m_center);</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">float</span> ftmp = m_ipscales[index];</span><br><span class="line">  <span class="keyword">if</span> (ftmp == <span class="number">0.0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">2.0</span> * fz * (<span class="number">0x0001</span> &lt;&lt; m_fm.m_level) / ftmp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>index</code>是图像编号，<code>coord</code>是三维射影空间下的坐标。</p>
+<p>这个函数在pmvs代码中几乎所有的和空间几何计算相关的函数中均被调用，最开始看代码时我并没有特别注意，但是随着代码阅读的深入，发现如果不将该函数读懂，就完全无法理解pmvs中所有的几何计算函数究竟是在做什么，于是今天花时间特意钻研了下，把该函数的含义表达清楚。</p>
+<p>先说结论：<strong>该函数是计算将图片上的一个像素反投影到空间的一个指定的面片（patch）上得到的正方形的大小（以世界坐标系中的距离为量度），这个面片满足如下条件——面片的中心位于<code>coord</code>， 面片的法线与相片的法线平行但方向相反（也就是论文中初始化patch时的法线计算方法）。</strong></p>
+<span id="more"></span>
+<p>这个结论看起来非常复杂，简单说就是如果我在空间的某个坐标处想要画一个正方形，使得该正方形投影到对应的与该正方形平行的相片上的大小恰好是1×1像素大小，那么这个正方形的边长在世界坐标系中的表达究竟是多少。这个函数就是来求解这个边长的。</p>
+<p>这样的话这个函数作用其实就相当大了，他直接沟通了像素坐标和空间坐标的比例关系，可以粗略的比较相片对于场景的缩放，简化很多投影和反投影计算。而这个函数用到的计算方法其实也非常简单。就是简单的相似三角形关系，具体解释如下</p>
+<p>小孔成像相机的几何关系如下图所示（摘自《 <em>Multiple View Geometry in Computer Vision</em> 》）</p>
+<img data-src="/posts/3e03a1fd/pinhole_camera_geometry.png" class="" title="小孔成像相机的几何关系">
+<p>从该成像原理上我们可以看出，空间中一个长度为<span class="math inline">\(D\)</span> 的物体投影到图像上长度<span class="math inline">\(l\)</span>满足如下关系： <span class="math display">\[
+\frac{D}{l} = \frac{Z_0}{f}
+\]</span> 其中<span class="math inline">\(f\)</span> 为焦距，<span class="math inline">\(Z_0\)</span> 为物体到摄影中心的距离。 由上式可以得到： <span class="math display">\[
+D = \frac{l}{f}Z_0
+\]</span> 这样我们已知<span class="math inline">\(l\)</span> 为1个像素长度，<span class="math inline">\(Z_0\)</span> 可以直接由<code>coord</code>到相片的摄影中心直接计算得到。那么只要我们知道以像素为单位的<span class="math inline">\(f\)</span>的数值，就可以直接得到<span class="math inline">\(D\)</span>。幸运的是，根据一般CCD相机内参数矩阵中各变量的定义： <span class="math display">\[
+K=\begin{bmatrix}
+    a_x &amp; s &amp; x_0 \\
+    0 &amp; a_y &amp; y_0 \\
+    0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span> 其中<span class="math inline">\(a_x\)</span>和 <span class="math inline">\(a_y\)</span>分别是相机在x和y方向上的焦距，且以像素为量纲。另外一般情况下，CCD相机在x和y方向上的比例因此近似相等，即<span class="math inline">\(a_x \approx a_y\)</span>，这样我们可以用下式来近似计算<span class="math inline">\(f\)</span> <span class="math display">\[
+f = \frac{a_x + a_y}{2}
+\]</span> 综上可得： <span class="math display">\[
+D=\frac{2}{a_x + a_y} Z_0
+\]</span> 这就是pmvs中<code>getUnit</code>的计算方法， 特别解释下，代码中<code>m_ipscales[index]</code>就是提前计算好的<span class="math inline">\(a_x+a_y\)</span>的数值，而<code>(0x0001 &lt;&lt; m_fm.m_level)</code>则是一个比例因子，可以让程序将图像缩放到一半或者四分之一大小进行计算。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/3e03a1fd/" title="PMVS论文随笔（1）">https://whuhenry.github.io/posts/3e03a1fd/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/PMVS-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA/" rel="tag"># -PMVS -学习笔记 -三维重建</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/b3af337a/" rel="prev" title="论文笔记1：低空无人飞行器影像处理流程">
+                  <i class="fa fa-chevron-left"></i> 论文笔记1：低空无人飞行器影像处理流程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/2d746d7d/" rel="next" title="基于图论表示的高光谱波段选择方法（GRBS)论文笔记">
+                  基于图论表示的高光谱波段选择方法（GRBS)论文笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

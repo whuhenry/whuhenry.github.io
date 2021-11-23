@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+<meta property="og:type" content="website">
+<meta property="og:title" content="成长印记">
+<meta property="og:url" content="https://whuhenry.github.io/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="闫钊">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:true,&quot;isPost&quot;:false,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;&quot;,&quot;path&quot;:&quot;index.html&quot;,&quot;title&quot;:&quot;&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/2af8056e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/2af8056e/" class="post-title-link" itemprop="url">如何搜索和免注册下载专利文档</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-23 17:31:01 / 修改时间：21:22:07" itemprop="dateCreated datePublished" datetime="2021-11-23T17:31:01+08:00">2021-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%96%87%E7%8C%AE%E6%A3%80%E7%B4%A2/" itemprop="url" rel="index"><span itemprop="name">文献检索</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在专利申请和写作时，需要检索现有的专利进行查新，或者学习现有的专利写作方式，而国家知识产权局的专利检索系统需要注册账号才能进行专利检索和下载，不太方便。这里介绍一种无需注册，更加方面的专利搜索和下载方法。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/2af8056e/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/96577df8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/96577df8/" class="post-title-link" itemprop="url">论文笔记-3D convolutional siamese network for few-shot hyperspectral classification</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-05 21:22:28" itemprop="dateCreated datePublished" datetime="2021-07-05T21:22:28+08:00">2021-07-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-06 11:02:53" itemprop="dateModified" datetime="2021-07-06T11:02:53+08:00">2021-07-06</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div class="note info"><p><img data-src="/posts/96577df8/network.JPG" class="" title="网络总体流程图"></p>
+<p>本文主要介绍了在小样本条件下进行高光谱分类的方法，通过contrastive learning的方法，使用两步训练的方法，是的网络能够通过自监督学习的方式生成具有强区分能力的latent feature，而后对lantent feature 进行分类，从而得到更好的分类结果</p>
+</div>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/96577df8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/8afe17f6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/8afe17f6/" class="post-title-link" itemprop="url">2021-06-21-论文笔记-Interpretable Hyperspectral Artificial IntelligenceWhen nonconvex: meets hyperspectral remote sensing</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-21 10:28:12 / 修改时间：11:00:40" itemprop="dateCreated datePublished" datetime="2021-06-21T10:28:12+08:00">2021-06-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div class="note info"><p><img data-src="/posts/8afe17f6/cover.JPG" class=""></p>
+<p>本文从高光谱图像恢复，降维，数据融合与增强，光谱解混，为大规模地表覆盖制图服务的多模学习技术（cross-modality learning）5个方面论述了非凸方法在高光谱智能解译中的应用。</p>
+</div>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/8afe17f6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/b68ee30/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b68ee30/" class="post-title-link" itemprop="url">论文笔记-Self-Supervised Learning With Adaptive Distillation for Hyperspectral Image Classification</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-06-15 19:35:39 / 修改时间：21:28:17" itemprop="dateCreated datePublished" datetime="2021-06-15T19:35:39+08:00">2021-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div class="note info"><p><img data-src="/posts/b68ee30/ip_result.PNG" class="" title="Indian Pines数据集分类结果"></p>
+<p>为了解决高光谱分类问题中带标签数据不足，数据标签采集困难的问题，本文提出了一种自适应Soft Label生成方法，同时提出了PCN网络结果和自适应蒸馏的网络训练方法和高光谱3D Transformation数据增强方法，联合多种方法，实现Few shot learning，最终结果显示能够通过5-10个样本，实现80%~90%的分类准确率</p>
+</div>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/b68ee30/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/2553f112/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/2553f112/" class="post-title-link" itemprop="url">论文笔记——BS-Nets An End-to-End Framework for Band Selection of Hyperspectral Image</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-01 23:27:35" itemprop="dateCreated datePublished" datetime="2021-03-01T23:27:35+08:00">2021-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-08 14:56:19" itemprop="dateModified" datetime="2021-06-08T14:56:19+08:00">2021-06-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="基本信息">0. 基本信息</h1>
+<ul>
+<li>引用信息</li>
+</ul>
+<blockquote>
+<p>Y. Cai, X. Liu and Z. Cai, "BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image," in IEEE Transactions on Geoscience and Remote Sensing, vol. 58, no. 3, pp. 1969-1984, March 2020, doi: 10.1109/TGRS.2019.2951433.</p>
+</blockquote>
+<ul>
+<li>bibtex entry <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;Cai2020BSNet,</span><br><span class="line">  author  = &#123;Y. &#123;Cai&#125; and X. &#123;Liu&#125; and Z. &#123;Cai&#125;&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  title   = &#123;BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image&#125;,</span><br><span class="line">  year    = &#123;2020&#125;,</span><br><span class="line">  volume  = &#123;58&#125;,</span><br><span class="line">  number  = &#123;3&#125;,</span><br><span class="line">  pages   = &#123;1969-1984&#125;,</span><br><span class="line">  doi     = &#123;10.1109/TGRS.2019.2951433&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="相关基础知识">1. 相关基础知识</h1>
+<h2 id="注意力机制attention-mechanism">1.1 注意力机制（Attention Mechanism）</h2>
+<p>注意力机制是模拟人的行为，对于图像的不同部分有不同的注意力程度。具体的，可以用数学公式表达如下：</p>
+<p><span class="math display">\[
+a = f_\Theta(x)
+\]</span></p>
+<p>其中<span class="math inline">\(a\)</span>叫做基于参数<span class="math inline">\(\Theta\)</span>使用注意力模块<span class="math inline">\(f\)</span>生成的Attention map，通常<span class="math inline">\(f\)</span>包含一个gation function来控制Attention map的尺度，如softmax函数。</p>
+<p>具体的对于一个feature map <span class="math inline">\(z\)</span>，应用注意力的方法也非常简单，直接将feature map与attention map逐元素相乘即可，即<span class="math inline">\(h = a \otimes z\)</span>.</p>
+<p>对于高光谱图像而言，则由于其为三维数据立方体，则存在三种注意力机制：</p>
+<ul>
+<li>空间注意力（spatial attention）</li>
+<li>光谱注意力（spectral attention）</li>
+<li>空间-光谱联合注意力（spatial-spectral joint attention）</li>
+</ul>
+<p>具体形式如下图所示： <img data-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f48a7b4ccb38464d9d9dfab410e3d825~tplv-k3u1fbpfcp-watermark.image" alt="高光谱图像的三种注意力机制" /></p>
+<p>在波段选择任务中，本文希望学习得到一个波段的权重向量，能够显著的反映波段间的关系。那么从这个角度来看，波段选择也可以看作是一个光谱注意力模块。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/2553f112/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/26f44a16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/26f44a16/" class="post-title-link" itemprop="url">论文笔记——DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-01 23:27:35" itemprop="dateCreated datePublished" datetime="2021-03-01T23:27:35+08:00">2021-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-08 14:56:30" itemprop="dateModified" datetime="2021-06-08T14:56:30+08:00">2021-06-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="基本信息">0. 基本信息</h1>
+<ul>
+<li><p>引用信息 &gt; S. K. Roy, S. Das, T. Song and B. Chanda, "DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection," in IEEE Geoscience and Remote Sensing Letters, doi: 10.1109/LGRS.2020.3013235.</p></li>
+<li><p>bibtex</p></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;Roy2020DARECNETBS,</span><br><span class="line">  author  = &#123;S. K. &#123;Roy&#125; and S. &#123;Das&#125; and T. &#123;Song&#125; and B. &#123;Chanda&#125;&#125;,</span><br><span class="line">  journal = &#123;IEEE Geoscience and Remote Sensing Letters&#125;,</span><br><span class="line">  title   = &#123;DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection&#125;,</span><br><span class="line">  year    = &#123;2020&#125;,</span><br><span class="line">  volume  = &#123;&#125;,</span><br><span class="line">  number  = &#123;&#125;,</span><br><span class="line">  pages   = &#123;1-5&#125;,</span><br><span class="line">  doi     = &#123;10.1109/LGRS.2020.3013235&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="基本思想">1. 基本思想</h1>
+<p>同样将波段选择问题视为光谱重建问题，本文的创新在于不仅应用了波段注意力机制（channel attention module），还增加了位置注意力机制（position attention module），所以叫做Dual-Attention, 因此能够重建三位高光谱图像数据立方体。</p>
+<h3 id="总体流程图">总体流程图</h3>
+<p><img data-src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/47bed4aeb0f146b7a1e080a9645d2795~tplv-k3u1fbpfcp-watermark.image" /></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/26f44a16/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/27e7a4c5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/27e7a4c5/" class="post-title-link" itemprop="url">论文笔记——Band Selection of Hyperspectral Images Using Attention-Based Autoencoders</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-01 23:27:35" itemprop="dateCreated datePublished" datetime="2021-03-01T23:27:35+08:00">2021-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-08 14:56:03" itemprop="dateModified" datetime="2021-06-08T14:56:03+08:00">2021-06-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="基本信息">0. 基本信息</h1>
+<ul>
+<li>引用信息</li>
+</ul>
+<blockquote>
+<p>Z. Dou, K. Gao, X. Zhang, H. Wang and L. Han, "Band Selection of Hyperspectral Images Using Attention-Based Autoencoders," in IEEE Geoscience and Remote Sensing Letters, vol. 18, no. 1, pp. 147-151, Jan. 2021, doi: 10.1109/LGRS.2020.2967815.</p>
+</blockquote>
+<ul>
+<li>bibtex entry</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;9032380,</span><br><span class="line">  author  = &#123;Z. &#123;Dou&#125; and K. &#123;Gao&#125; and X. &#123;Zhang&#125; and H. &#123;Wang&#125; and L. &#123;Han&#125;&#125;,</span><br><span class="line">  journal = &#123;IEEE Geoscience and Remote Sensing Letters&#125;,</span><br><span class="line">  title   = &#123;Band Selection of Hyperspectral Images Using Attention-Based Autoencoders&#125;,</span><br><span class="line">  year    = &#123;2021&#125;,</span><br><span class="line">  volume  = &#123;18&#125;,</span><br><span class="line">  number  = &#123;1&#125;,</span><br><span class="line">  pages   = &#123;147-151&#125;,</span><br><span class="line">  doi     = &#123;10.1109/LGRS.2020.2967815&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总体思想">1. 总体思想</h1>
+<p>与BS-Net<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>思想类似，均是将波段选择视作高光谱波段重建任务，同样根据原始的高光谱图像首先生成Attention map， 而后根据Attention map与原始图像逐像素相乘的结构，使用Auto-encoder网络对于原始高光谱图像进行重建，得到重建后的高光谱图像，而后计算其与原始输入高光谱图像的差异计算损失函数。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/27e7a4c5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/f53b6976/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/f53b6976/" class="post-title-link" itemprop="url">Gnome Bug：无法点击、永不消逝的授权对话框</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-01 23:27:35" itemprop="dateCreated datePublished" datetime="2021-01-01T23:27:35+08:00">2021-01-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-02 19:05:38" itemprop="dateModified" datetime="2021-01-02T19:05:38+08:00">2021-01-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">计算机</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div class="note info"><p><img data-src="/posts/f53b6976/Issues_softwareInstall5-300x230.png" class="" title="授权对话框"></p>
+<p>在Ubuntu20.04上安装xRDP服务后，使用Windows远程桌面或者使用Linux下远程桌面登陆后，有时会在桌面左上角出现一个授权许可对话框，但是无论是输入密码后授权还是直接点击取消，该对话框均不会消失，而且无法使用鼠标移动，但是又不影响点击对话框后的内容，却又十分影响使用，经过搜索后发现这个应该是Gnome的bug，而且是尚未修复，但是能够通过一些方法使该对话框消失，不再影响使用。</p>
+</div>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/f53b6976/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/de885869/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/de885869/" class="post-title-link" itemprop="url">AVIRIS反射率数据简介</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-31 21:10:48" itemprop="dateCreated datePublished" datetime="2020-05-31T21:10:48+08:00">2020-05-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-02 19:05:38" itemprop="dateModified" datetime="2021-01-02T19:05:38+08:00">2021-01-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div class="note info"><p><img data-src="/posts/de885869/image-20200601200939930.png" class="" title="This is an example image"></p>
+<p>AVIRIS高光谱成像光谱仪采集得到的原始图像为辐亮度图像，经过校正后的L1级产品为地表辐亮度信息。但是许多时候，我们更希望知道地面目标物的反射率信息，并且这一信息应该与在地面使用地物光谱仪（如常见的ASD光谱仪）采集的反射率曲线应该一致。因此从原始的辐亮度（Radiance）图像转换生成反射率图像通常需要进行大气校正，水汽吸收校正等过程，最终消除大气传输过程中的各种干扰因素影响，得到最终的反射率曲线。需要注意的是，由于大气水汽吸收的影响，如上图所示，在特定波长波段（1400nm左右与1900nm左右）信号强度非常弱，数据信噪比差，通常会将这些波段认定为无效波段。</p>
+</div>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/de885869/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/a2c9f775/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/a2c9f775/" class="post-title-link" itemprop="url">AVIRIS数据描述简介</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-31 17:38:42" itemprop="dateCreated datePublished" datetime="2020-05-31T17:38:42+08:00">2020-05-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-30 10:43:54" itemprop="dateModified" datetime="2020-12-30T10:43:54+08:00">2020-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div class="note info"><p>AVIRIS数据可以通过<a target="_blank" rel="noopener" href="https://aviris.jpl.nasa.gov/dataportal/">AVIRIS Data Protal</a>网站进行检索和下载。该网站提供了2种检索方式，一种是基于地图的检索，另一种是基于元数据列表的检索，元数据列表通过Excel文件格式提供。当确定需要下载的数据后，可以通过官方的FTP服务器进行下载，官方提供L1级数据（辐亮度数据）和L2级数据（反射率数据）下载，下载后的文件为GZIP格式压缩包。具体数据组织和元数据描述方法如下。</p>
+</div>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/a2c9f775/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

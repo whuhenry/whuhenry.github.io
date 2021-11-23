@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="高光谱光谱仪和成像仪的微型化是遥感走向大众应用的关键硬件技术，传统的地物光谱仪和高光谱成像仪体型大，耗电量高，需要丰富的专业知识才能操作设备并对采集的数据进行分析和理解。随着制造工艺的发展，高光谱光谱仪和成像仪小型化也逐渐成为现实，并且开始出现相应的公司和商品。本文汇总了搜集到的几款典型的小型高光谱设备，希望借此来描述目前小型化高光谱设备的最新发展状态。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手机高光谱现状">
+<meta property="og:url" content="https://whuhenry.github.io/posts/1c618a28/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="高光谱光谱仪和成像仪的微型化是遥感走向大众应用的关键硬件技术，传统的地物光谱仪和高光谱成像仪体型大，耗电量高，需要丰富的专业知识才能操作设备并对采集的数据进行分析和理解。随着制造工艺的发展，高光谱光谱仪和成像仪小型化也逐渐成为现实，并且开始出现相应的公司和商品。本文汇总了搜集到的几款典型的小型高光谱设备，希望借此来描述目前小型化高光谱设备的最新发展状态。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/camera-face.png">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/camera-back.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/optical_filter.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/hypercam-fist-images.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_minismd.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_minims340-750.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_minims340-750.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_micro.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_micro.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_vnir.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_swir_1750-2150.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_swir_1550-1850.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/1c618a28/vtt_swir_1750-2150.jpg">
+<meta property="article:published_time" content="2018-12-28T07:32:26.000Z">
+<meta property="article:modified_time" content="2020-12-30T02:43:54.244Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="高光谱">
+<meta property="article:tag" content="Hyperspectral">
+<meta property="article:tag" content="手机">
+<meta property="article:tag" content="传感器">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/1c618a28/camera-face.png">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/1c618a28/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;1c618a28&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;1c618a28&#x2F;&quot;,&quot;title&quot;:&quot;手机高光谱现状&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>手机高光谱现状 | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%BF%E8%99%B9h2"><span class="nav-text">1. 长虹H2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#specim-iq"><span class="nav-text">2. SPECIM IQ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%AC%E5%85%B0vtt%E5%AE%9E%E7%8E%B0%E7%9A%84mems-fpi%E6%94%B9%E9%80%A0%E7%9A%84iphone-5s%E8%B6%85%E5%85%89%E8%B0%B1%E6%88%90%E5%83%8F%E7%B3%BB%E7%BB%9F"><span class="nav-text">3. 芬兰VTT实现的MEMS-FPI改造的iPhone 5s超光谱成像系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/1c618a28/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          手机高光谱现状
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-28 15:32:26" itemprop="dateCreated datePublished" datetime="2018-12-28T15:32:26+08:00">2018-12-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-30 10:43:54" itemprop="dateModified" datetime="2020-12-30T10:43:54+08:00">2020-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>高光谱光谱仪和成像仪的微型化是遥感走向大众应用的关键硬件技术，传统的地物光谱仪和高光谱成像仪体型大，耗电量高，需要丰富的专业知识才能操作设备并对采集的数据进行分析和理解。随着制造工艺的发展，高光谱光谱仪和成像仪小型化也逐渐成为现实，并且开始出现相应的公司和商品。本文汇总了搜集到的几款典型的小型高光谱设备，希望借此来描述目前小型化高光谱设备的最新发展状态。</p>
+<span id="more"></span>
+<p>首先介绍一个小知识，就是普通手机摄像头使用的CCD/CMOS相机能够有效探测的光谱范围是超过人眼可见光谱范围的，一般来说人眼的可见范围在400-700nm左右，而CCD/CMOS传感器探测范围则可以达到400-1000nm左右，这也是很多高光谱相机在400-1000nm波段使用CMOS传感器的原因。同时相机传感器测量的是所有波段总辐亮度，因此如果想要获取不同谱段的辐亮度信息，需要在镜头前加装分光装置，通常为滤光片或者狭缝干涉分光，将进入特定CMOS传感器的光线只集中于某一个小的谱段范围内，从而实现高光谱成像。对于普通可见光相机来说，700-1000nm谱段的的信息是不需要的，如果让他们进入传感器，反而会影响成像效果，因此普通可见光相机都会增加一层红外滤光片，保证进入相机的光线在400-700nm范围内。这这使得相机的镜头仅靠外部加装新的滤光片也无法获得可将光范围外的光谱信息，除非增加新的镜头和传感器，或者手机镜头本身是经过特殊定制的才能使得手机具备近红外成像能力。</p>
+<h2 id="长虹h2">1. 长虹H2</h2>
+<p>2017年1月6日，长虹在CES 2017发布了长虹H2手机，号称“世界首款分子识别手机”， 集成了亚德诺半导体技术有限公司（ADI）及以色列Consumer Physics公司共同合作研发高光谱传感器<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。其传感器是Consumer Physics开发的手持光谱仪“SCiO”。从公开资料上来看，该设备为获取目标单点光谱信息，然后通过云端算法比对，返回目标光谱信息，没有找到该设备相应光谱范围信息，但是其嵌入式设备的基本信息显示测量距离从接触到2cm，测量时间2-5s，除了手机芯片外，该公司还提供小型的手持光谱仪（汽车钥匙大小），功能类似。公司宣称使用该设备能够实现的功能包括<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>：</p>
+<ul>
+<li>果蔬检测：糖分、水分、品质</li>
+<li>体脂率、热量平衡检测</li>
+<li>烟草产地、品种检测</li>
+<li>药品真伪检测</li>
+<li>皮肤保健：水分、油脂、年龄</li>
+<li>酒类检测：工艺、原料、品质</li>
+<li>牛奶过期、饮料糖分或酒精含量</li>
+</ul>
+<h2 id="specim-iq">2. SPECIM IQ</h2>
+<p>宣称为世界上首个手持移动高光谱成像仪（2017-12-1），机尺寸207mm × 91mm，约为单反相机大小，具体技术参数为<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Spectral camera</strong></th>
+<th style="text-align: left;">VNIR 400-1000 nm (CMOS)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Viewfinder camera</strong></td>
+<td style="text-align: left;">5 Mpix</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>User interface SW</strong></td>
+<td style="text-align: left;">By Specim</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Storage</strong></td>
+<td style="text-align: left;">SD card max 32 GB</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Data Format</strong></td>
+<td style="text-align: left;">Specim Dataset with ENVI compatible data files</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Battery</strong></td>
+<td style="text-align: left;">5200 mAh Li-Ion (Type 26650)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Operational time</strong></td>
+<td style="text-align: left;">Appx. 100 measurements with one SD card and battery</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Display &amp; keyboard</strong></td>
+<td style="text-align: left;">4.3 ” touch screen + 13 physical buttons</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Camera interface</strong></td>
+<td style="text-align: left;">USB Type-C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Size</strong></td>
+<td style="text-align: left;">207 x 91 x 74 mm (depth with lens 125,5 mm)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Weight</strong></td>
+<td style="text-align: left;">1.3 kg</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>F/number</strong></td>
+<td style="text-align: left;">1.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Wavelength band</strong></td>
+<td style="text-align: left;">400-1000 nm</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spectral resolution FWHM</strong></td>
+<td style="text-align: left;">7 nm</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Spatial Sampling</strong></td>
+<td style="text-align: left;">512 pix</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Spectral bands</strong></td>
+<td style="text-align: left;">204</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Peak SNR</strong></td>
+<td style="text-align: left;">&gt; 400:1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Object distance</strong></td>
+<td style="text-align: left;">150 – ∞ mm</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>FOV</strong></td>
+<td style="text-align: left;">31 x 31 deg</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>FOV at 1 m</strong></td>
+<td style="text-align: left;">0.55 x 0.55 m</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Temperature, operational</strong></td>
+<td style="text-align: left;">+5°C – +40°C</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Humidity, operational</strong></td>
+<td style="text-align: left;">95% non-condensing</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>相机正面</li>
+</ul>
+<figure>
+<img data-src="camera-face.png" alt="相机正面" /><figcaption aria-hidden="true">相机正面</figcaption>
+</figure>
+<ul>
+<li>相机背面</li>
+</ul>
+<figure>
+<img data-src="camera-back.jpg" alt="相机背面" /><figcaption aria-hidden="true">相机背面</figcaption>
+</figure>
+<p>同时已经有文章<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>来测试该相机性能并讨论该相机在植物表型分析和疾病探测方面的引用。</p>
+<h2 id="芬兰vtt实现的mems-fpi改造的iphone-5s超光谱成像系统">3. 芬兰VTT实现的MEMS-FPI改造的iPhone 5s超光谱成像系统</h2>
+<p>芬兰的VTT国家技术研究中心（VTT Technical Research Centre of Finland）在iPhone相机中整合了电性可调微光学机电系统（MEMS， Micro Opto Electro Mechanical Systems），该系统是一种法布立-培若干涉仪(Fabry-Perot Interferometer；FPI)，其原理是将金属电极整合至反射镜薄膜，使其达到可由电容制动器调谐气缝的高度，从而改变带通波长<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>。即可以通过电压控制通过滤波器的光线的谱段范围，从而实现获取特定谱段图像的目的。这种方法与通过滤光片获取高光谱图像原理类似，同时也有相同的缺点，即同一时间只能获取某一个谱段的图像。</p>
+<ul>
+<li><em>Fabry-Pérot interferometer tunable optical filter↓</em></li>
+</ul>
+<p><img data-src="optical_filter.jpg" /></p>
+<ul>
+<li><em>使用高光谱图像获取静脉血管图像↓</em></li>
+</ul>
+<figure>
+<img data-src="hypercam-fist-images.jpg" alt="使用高光谱显示静脉血管" /><figcaption aria-hidden="true">使用高光谱显示静脉血管</figcaption>
+</figure>
+<p>到目前为止，VTT的微型高光谱滤波产品有两条产品线，一条是VNIR波段产品（400-1000nm），其产品系列如下<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>：</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 11%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Image</th>
+<th>Part No.</th>
+<th>Product Name</th>
+<th>Type</th>
+<th>Spectral Response Range</th>
+<th>Spectral Resolution (FWHM)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C14384MA-01/index.html"><img data-src="vtt_minismd.jpg" alt="Mini-spectrometer SMD series" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C14384MA-01/index.html">C14384MA-01</a></td>
+<td>Mini-spectrometer SMD series</td>
+<td>Spectrometer head High sensitivity type</td>
+<td>640 to 1050nm</td>
+<td>25nm</td>
+</tr>
+<tr class="even">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C10988MA-01/index.html"><img data-src="vtt_minims340-750.jpg" alt="Mini-spectrometer MS series" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C10988MA-01/index.html">C10988MA-01</a></td>
+<td>Mini-spectrometer MS series</td>
+<td>Spectrometer head</td>
+<td>340 to 750nm</td>
+<td>14 nm</td>
+</tr>
+<tr class="odd">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C11708MA/index.html"><img data-src="vtt_minims340-750.jpg" alt="C10988MA-01,C11708MA" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C11708MA/index.html">C11708MA</a></td>
+<td>Mini-spectrometer MS series</td>
+<td>Spectrometer head For near IR</td>
+<td>640 to 1050nm</td>
+<td>20 nm</td>
+</tr>
+<tr class="even">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C12666MA/index.html"><img data-src="vtt_micro.jpg" alt="C12666MA,C12880MA" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C12666MA/index.html">C12666MA</a></td>
+<td>Micro-spectrometer</td>
+<td>Spectrometer head Wide dynamic range type</td>
+<td>340 to 780nm</td>
+<td>15 nm</td>
+</tr>
+<tr class="odd">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C12880MA/index.html"><img data-src="vtt_micro.jpg" alt="C12666MA,C12880MA" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C12880MA/index.html">C12880MA</a></td>
+<td>Micro-spectrometer</td>
+<td>Spectrometer head High sensitivity type</td>
+<td>340 to 850nm</td>
+<td>15 nm</td>
+</tr>
+</tbody>
+</table>
+<p>VNIR产品图示：</p>
+<figure>
+<img data-src="vtt_vnir.jpg" alt="VTT微型VNIR分光仪" /><figcaption aria-hidden="true">VTT微型VNIR分光仪</figcaption>
+</figure>
+<p>另外一条产品线是SWIR的光谱传感器，其产品序列如下表所示<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>：</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 4%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Image</th>
+<th>Part No.</th>
+<th>Product Name</th>
+<th>光谱相应区间</th>
+<th>光谱分辨率（FWHM）</th>
+<th>最大暗电流</th>
+<th>传感器成像敏感区域</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C14273/index.html"><img data-src="vtt_swir_1750-2150.jpg" alt="C14273" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C14273/index.html">C14273</a></td>
+<td>MEMS-FPI spectrum sensor</td>
+<td>1750 to 2150 nm</td>
+<td>22 nm</td>
+<td>150 nA</td>
+<td>φ0.3 mm</td>
+</tr>
+<tr class="even">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C13272-02/index.html"><img data-src="vtt_swir_1550-1850.jpg" alt="C13272-02" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C13272-02/index.html">C13272-02</a></td>
+<td>MEMS-FPI spectrum sensor</td>
+<td>1550 to 1850 nm</td>
+<td>20 nm</td>
+<td>40 nA</td>
+<td>φ0.1 mm</td>
+</tr>
+<tr class="odd">
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C14272/index.html"><img data-src="vtt_swir_1750-2150.jpg" alt="C14272" /></a></td>
+<td><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/type/C14272/index.html">C14272</a></td>
+<td>MEMS-FPI spectrum sensor</td>
+<td>1350 to 1650 nm</td>
+<td>18 nm</td>
+<td>10 nA</td>
+<td>φ0.3 mm</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://cn.technode.com/post/2017-01-09/changhong-h2/">长虹H2智能手机，世界首款分子识别手机 | CES 2017</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://www.consumerphysics.com/business/solutions/">Customized solutions with the SCiO pocket-sized NIR spectrometer</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a target="_blank" rel="noopener" href="http://www.specim.fi/iq/tech-specs/">Specim IQ Technical Specifications</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://www.mdpi.com/1424-8220/18/2/441">Behmann, J.; Acebron, K.; Emin, D.; Bennertz, S.; Matsubara, S.; Thomas, S.; Bohnenkamp, D.; Kuska, M.T.; Jussila, J.; Salo, H.; Mahlein, A.-K.; Rascher, U. Specim IQ: Evaluation of a New, Miniaturized Handheld Hyperspectral Camera and Its Application for Plant Phenotyping and Disease Detection. Sensors 2018, 18, 441.</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://www.eet-china.com/news/201612011017.html">iPhone变身首款全整合型的超光谱相机</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/optical-sensors/spectrum-sensor/micro-spectrometer/index.html">Micro-spectrometers</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://www.hamamatsu.com/us/en/product/optical-sensors/spectrum-sensor/mems-fpi-spectrum-sensor/index.html">MEMS-FPI spectrum sensors</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/1c618a28/" title="手机高光谱现状">https://whuhenry.github.io/posts/1c618a28/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%AB%98%E5%85%89%E8%B0%B1/" rel="tag"># 高光谱</a>
+              <a href="/tags/Hyperspectral/" rel="tag"># Hyperspectral</a>
+              <a href="/tags/%E6%89%8B%E6%9C%BA/" rel="tag"># 手机</a>
+              <a href="/tags/%E4%BC%A0%E6%84%9F%E5%99%A8/" rel="tag"># 传感器</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/dbf97099/" rel="prev" title="MVS学习笔记(1)——语义三维重建入门">
+                  <i class="fa fa-chevron-left"></i> MVS学习笔记(1)——语义三维重建入门
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/5cc48b90/" rel="next" title="论文笔记 - Scanning Photogrammetry for Measuring Large Targets in Close Range">
+                  论文笔记 - Scanning Photogrammetry for Measuring Large Targets in Close Range <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

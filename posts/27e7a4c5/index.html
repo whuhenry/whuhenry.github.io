@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="0. 基本信息  引用信息   Z. Dou, K. Gao, X. Zhang, H. Wang and L. Han, &quot;Band Selection of Hyperspectral Images Using Attention-Based Autoencoders,&quot; in IEEE Geoscience and Remote Sensing Letters, vol. 18,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文笔记——Band Selection of Hyperspectral Images Using Attention-Based Autoencoders">
+<meta property="og:url" content="https://whuhenry.github.io/posts/27e7a4c5/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="0. 基本信息  引用信息   Z. Dou, K. Gao, X. Zhang, H. Wang and L. Han, &quot;Band Selection of Hyperspectral Images Using Attention-Based Autoencoders,&quot; in IEEE Geoscience and Remote Sensing Letters, vol. 18,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/384c0ab0a7d749c7a91fc8923b8cf44b~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff6a49f73a1544a2bf2d55331c02980f~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/34d7ad2b3e044edd8be50d6df561e382~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2021-03-01T15:27:35.000Z">
+<meta property="article:modified_time" content="2021-06-08T06:56:03.269Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="论文笔记">
+<meta property="article:tag" content="波段选择">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/384c0ab0a7d749c7a91fc8923b8cf44b~tplv-k3u1fbpfcp-watermark.image">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/27e7a4c5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;27e7a4c5&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;27e7a4c5&#x2F;&quot;,&quot;title&quot;:&quot;论文笔记——Band Selection of Hyperspectral Images Using Attention-Based Autoencoders&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>论文笔记——Band Selection of Hyperspectral Images Using Attention-Based Autoencoders | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-text">0. 基本信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%80%9D%E6%83%B3"><span class="nav-text">1. 总体思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="nav-text">总体流程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%96%B9%E6%B3%95"><span class="nav-text">2. 具体方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-text">2.1 网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84-1"><span class="nav-text">网络结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-text">2.2 损失函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E6%B3%A2%E6%AE%B5%E9%80%89%E6%8B%A9"><span class="nav-text">2.3 最优波段选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E4%BC%BC%E6%80%A7%E7%9F%A9%E9%98%B5%E5%B7%A6attention-map%E5%8F%B3%E5%8E%9F%E5%A7%8Bhsi"><span class="nav-text">相似性矩阵（左：Attention Map；右：原始HSI）</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/27e7a4c5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文笔记——Band Selection of Hyperspectral Images Using Attention-Based Autoencoders
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-01 23:27:35" itemprop="dateCreated datePublished" datetime="2021-03-01T23:27:35+08:00">2021-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-08 14:56:03" itemprop="dateModified" datetime="2021-06-08T14:56:03+08:00">2021-06-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="基本信息">0. 基本信息</h1>
+<ul>
+<li>引用信息</li>
+</ul>
+<blockquote>
+<p>Z. Dou, K. Gao, X. Zhang, H. Wang and L. Han, "Band Selection of Hyperspectral Images Using Attention-Based Autoencoders," in IEEE Geoscience and Remote Sensing Letters, vol. 18, no. 1, pp. 147-151, Jan. 2021, doi: 10.1109/LGRS.2020.2967815.</p>
+</blockquote>
+<ul>
+<li>bibtex entry</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;9032380,</span><br><span class="line">  author  = &#123;Z. &#123;Dou&#125; and K. &#123;Gao&#125; and X. &#123;Zhang&#125; and H. &#123;Wang&#125; and L. &#123;Han&#125;&#125;,</span><br><span class="line">  journal = &#123;IEEE Geoscience and Remote Sensing Letters&#125;,</span><br><span class="line">  title   = &#123;Band Selection of Hyperspectral Images Using Attention-Based Autoencoders&#125;,</span><br><span class="line">  year    = &#123;2021&#125;,</span><br><span class="line">  volume  = &#123;18&#125;,</span><br><span class="line">  number  = &#123;1&#125;,</span><br><span class="line">  pages   = &#123;147-151&#125;,</span><br><span class="line">  doi     = &#123;10.1109/LGRS.2020.2967815&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总体思想">1. 总体思想</h1>
+<p>与BS-Net<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>思想类似，均是将波段选择视作高光谱波段重建任务，同样根据原始的高光谱图像首先生成Attention map， 而后根据Attention map与原始图像逐像素相乘的结构，使用Auto-encoder网络对于原始高光谱图像进行重建，得到重建后的高光谱图像，而后计算其与原始输入高光谱图像的差异计算损失函数。</p>
+<span id="more"></span>
+<h3 id="总体流程">总体流程</h3>
+<figure>
+<img data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/384c0ab0a7d749c7a91fc8923b8cf44b~tplv-k3u1fbpfcp-watermark.image" alt="总体流程" /><figcaption aria-hidden="true">总体流程</figcaption>
+</figure>
+<h1 id="具体方法">2. 具体方法</h1>
+<h2 id="网络结构">2.1 网络结构</h2>
+<p>在Attention Module中，网络结构实现与BS-Net几乎一致，只是网络层级和每层参数数量上的差异；对于用于重建的Auto-Encoder网络，则添加了跳链接，其余则是普通的auto-encoder结构。</p>
+<h3 id="网络结构-1">网络结构</h3>
+<p><img data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ff6a49f73a1544a2bf2d55331c02980f~tplv-k3u1fbpfcp-watermark.image" /></p>
+<h2 id="损失函数">2.2 损失函数</h2>
+<p>最终的损失函数计算也和BS-Net类似，同样计算了逐像素的欧式距离相似性，并增加了Attention map权重的正则项，具体如下：</p>
+<p><span class="math display">\[
+J(\theta) = \frac{1}{2}||f(\mathbf{X} \circ \mathbf{M}) - \mathbf{X}||^2_2 + \lambda||\mathbf{M}||_{2,1}
+\]</span></p>
+<p>其中<span class="math inline">\(\mathbf{X}\)</span>是输入高光谱图像；<span class="math inline">\(\mathbf{M}\)</span>是Attention Map，是根据<span class="math inline">\(\mathbf{X}\)</span>估算得到的， <span class="math inline">\(||\mathbf{M}||_{2,1} = (\sum_{i=1}^n||\mathbf{M}_{i,:}||_1^2)^{1/2}\)</span>； <span class="math inline">\(f\)</span>是AutoEncoder重建网络。</p>
+<h2 id="最优波段选择">2.3 最优波段选择</h2>
+<p>与BS-Net不用，最后波段并不是根据Attention Map求和后选择最大得到，而是根据Attention Map进行相似性聚类（使用KMeans方法），而后根据聚类结果选择最优波段。Attention Map的相似性矩阵与原始高光谱图像的相似性矩阵有很大差异。</p>
+<h3 id="相似性矩阵左attention-map右原始hsi">相似性矩阵（左：Attention Map；右：原始HSI）</h3>
+<p><img data-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/34d7ad2b3e044edd8be50d6df561e382~tplv-k3u1fbpfcp-watermark.image" /></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Y. Cai, X. Liu and Z. Cai, "BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image," in IEEE Transactions on Geoscience and Remote Sensing, vol. 58, no. 3, pp. 1969-1984, March 2020, doi: 10.1109/TGRS.2019.2951433.</p>
+<p>我的笔记：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6934321665379663879">论文笔记：BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/27e7a4c5/" title="论文笔记——Band Selection of Hyperspectral Images Using Attention-Based Autoencoders">https://whuhenry.github.io/posts/27e7a4c5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag"># 论文笔记</a>
+              <a href="/tags/%E6%B3%A2%E6%AE%B5%E9%80%89%E6%8B%A9/" rel="tag"># 波段选择</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/f53b6976/" rel="prev" title="Gnome Bug：无法点击、永不消逝的授权对话框">
+                  <i class="fa fa-chevron-left"></i> Gnome Bug：无法点击、永不消逝的授权对话框
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/26f44a16/" rel="next" title="论文笔记——DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection">
+                  论文笔记——DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

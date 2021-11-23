@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="AVIRIS 是指 机载可见光近红外成像光谱（Airborne Visible InfraRed Imaging Spectrometer）。是由美国NASA下属的喷气动力实验室（JPL）开发和维护的光谱成像设备。现有两代产品：AVIRIS-Classic 和AVIRIS-NG（AVIRIS Next Generation），其中AVIRIS-Classict从1986年开始服役，目前网站上提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVIRIS 简介">
+<meta property="og:url" content="https://whuhenry.github.io/posts/305711eb/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="AVIRIS 是指 机载可见光近红外成像光谱（Airborne Visible InfraRed Imaging Spectrometer）。是由美国NASA下属的喷气动力实验室（JPL）开发和维护的光谱成像设备。现有两代产品：AVIRIS-Classic 和AVIRIS-NG（AVIRIS Next Generation），其中AVIRIS-Classict从1986年开始服役，目前网站上提供">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aviris-ng.jpl.nasa.gov/img/banner130213.png">
+<meta property="og:image" content="https://aviris.jpl.nasa.gov/aviris/images/av_swath_shadow.png">
+<meta property="og:image" content="https://aviris.jpl.nasa.gov/aviris/images/instrument_outline.jpg">
+<meta property="og:image" content="https://aviris-ng.jpl.nasa.gov/img/AVIRIS-NG_spectroscopy_overview_image.png">
+<meta property="og:image" content="https://aviris-ng.jpl.nasa.gov/img/instruments_avirisng_sensor_lg.png">
+<meta property="og:image" content="https://aviris-ng.jpl.nasa.gov/img/instruments_3.png">
+<meta property="og:image" content="https://whuhenry.github.io/posts/305711eb/aviris-ng-data-portal.png">
+<meta property="article:published_time" content="2020-05-30T13:13:38.000Z">
+<meta property="article:modified_time" content="2020-12-30T02:43:54.286Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="高光谱">
+<meta property="article:tag" content="数据集">
+<meta property="article:tag" content="AVIRIS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aviris-ng.jpl.nasa.gov/img/banner130213.png">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/305711eb/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;305711eb&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;305711eb&#x2F;&quot;,&quot;title&quot;:&quot;AVIRIS 简介&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>AVIRIS 简介 | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#aviris-classic"><span class="nav-text">1. AVIRIS-Classic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aviris-ng"><span class="nav-text">2. AVIRIS-NG</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/305711eb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AVIRIS 简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-30 21:13:38" itemprop="dateCreated datePublished" datetime="2020-05-30T21:13:38+08:00">2020-05-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-30 10:43:54" itemprop="dateModified" datetime="2020-12-30T10:43:54+08:00">2020-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div class="note info"><p><img data-src="https://aviris-ng.jpl.nasa.gov/img/banner130213.png" /> AVIRIS 是指 <strong>机载可见光近红外成像光谱</strong>（<strong>A</strong>irborne <strong>V</strong>isible <strong>I</strong>nfra<strong>R</strong>ed <strong>I</strong>maging <strong>S</strong>pectrometer）。是由美国NASA下属的喷气动力实验室（JPL）开发和维护的光谱成像设备。现有两代产品：<code>AVIRIS-Classic</code> 和<code>AVIRIS-NG</code>（AVIRIS Next Generation），其中AVIRIS-Classict从1986年开始服役，目前网站上提供从1992年开始至2020年采集高光谱图像数据，主要为地面辐亮度图像，少部分图像提供反射率图像。AVIRIS-NG则提供从2012年至2020年的高光谱图像数据。所有的图像均进行了几何矫正，具有真实的地理坐标信息。目前AVIRIS-Classic提供的数据主要位于美国本土，还有少量太平洋中海岛、以及加拿大和欧洲地区的数据。AVIRIS-NG则目前主要提供欧洲和印度区域数据。</p>
+</div>
+<span id="more"></span>
+<h2 id="aviris-classic">1. AVIRIS-Classic</h2>
+<p><img data-src="https://aviris.jpl.nasa.gov/aviris/images/av_swath_shadow.png" /></p>
+<p>AVIRIS是地球遥感领域的先进设备。其具备一个独特的光学传感器，能够采集波长在<strong>400~2500nm</strong>范围内的上行的光谱辐亮度信息，并进行辐亮度矫正，最终生成具有<strong>224</strong>个连续光谱通道（波段）的高光谱图像。AVIRIS曾经搭载在4种不同的飞行平台上， 分别为：NASA 的ER-2 喷气式飞机，Twin Otter International 的涡轮螺旋桨飞机，Scaled Composites' Proteus（一种双翼高空长航时飞机）以及NASA的WB-57飞机。 ER-2飞机飞行高度约为海拔20km，航速为730km/h，Twin Otter的飞机飞行高度约为地面上4km，航速约为130km/h。 AVIRIS在主要在美国各地进行执行飞行任务，此外还在欧洲和加拿大执行任务<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+<figure>
+<img data-src="https://aviris.jpl.nasa.gov/aviris/images/instrument_outline.jpg" alt="AVIRIS-Classic 结构示意图 ↑" /><figcaption aria-hidden="true">AVIRIS-Classic 结构示意图 ↑</figcaption>
+</figure>
+<ul>
+<li><strong>设备基本参数</strong></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">参数名称</th>
+<th>参数值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">数据码率</td>
+<td>1994年：17Mbps<br />1995<sub>2004年：20.4Mbps<br />2005</sub>今：16Bit</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">数据量化</td>
+<td>1994年：10bit<br />1995年~今：12bit</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">探测器类型</td>
+<td>可见光波段：Si探测器<br />近红外波段（NIR）：InGaAr<br />短波红外（SWIR）：InSb<br />液氮（LN2）制冷探测器</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">成像方式</td>
+<td>摆扫式（Whisk broom）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">扫描速率</td>
+<td>12Hz</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">光谱带宽</td>
+<td>10nm标称波段宽度，经过矫正，误差±1nm</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">视场角（FOV）</td>
+<td>34°，总计677个像素</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">单像素视场角（IFOV）</td>
+<td>1 mrad</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>数据下载门户网站</strong>
+<ul>
+<li>从2006年至今的数据，可以从<code>AVIRIS Data Product Portal</code>网站下载：https://aviris.jpl.nasa.gov/dataportal/</li>
+<li>1992年至2005年的数据，需要从网站http://aviris.jpl.nasa.gov/locator_select.php首先搜索需要的飞行记录，然后填写<a target="_blank" rel="noopener" href="https://aviris.jpl.nasa.gov/cgi/ordering_aviris_data.php">AVIRIS Archive Data Request form</a> 申请数据下载</li>
+</ul></li>
+</ul>
+<h2 id="aviris-ng">2. AVIRIS-NG</h2>
+<figure>
+<img data-src="https://aviris-ng.jpl.nasa.gov/img/AVIRIS-NG_spectroscopy_overview_image.png" alt="AVIRIS-NG数据采集、处理和应用↑" /><figcaption aria-hidden="true">AVIRIS-NG数据采集、处理和应用↑</figcaption>
+</figure>
+<p>AVIRIS-NG是用来采集太阳反射光谱范围内的高信噪比连续光谱图像，并希望能够接替从1986年开始服役AVIRIS-Classic设备。其数据成果可以广泛运用于生态环境、土壤地质、内陆湖泊、冰雪、生物质燃烧、大气、环境污染、农业等多种研究中。</p>
+<p>AVIRIS-NG能够以5nm的光谱分辨率采集波长在380<sub>2510nm范围的连续光谱图像。目前该设备已经成功搭载在<strong>Twin Otter</strong>平台上，以0.3m</sub>4m的空间分辨率采集了光谱图像数据，单条扫描线包含600个像素。在不久的将来计划搭载在具有更高飞行高度的<strong>NASA ER-2</strong>平台上。 AVIRIS-NG的跨条带（Cross-track）光谱一致性优于95%，且光谱维IFOV一致性优于95%。<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<figure>
+<img data-src="https://aviris-ng.jpl.nasa.gov/img/instruments_avirisng_sensor_lg.png" alt="The AVIRIS-NG 传感器结构↑" /><figcaption aria-hidden="true"><em>The AVIRIS-NG 传感器结构↑</em></figcaption>
+</figure>
+<figure>
+<img data-src="https://aviris-ng.jpl.nasa.gov/img/instruments_3.png" alt="AVIRIS传感器实拍↑" /><figcaption aria-hidden="true">AVIRIS传感器实拍↑</figcaption>
+</figure>
+<ul>
+<li><strong>设备基本参数</strong></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Parameter</strong></th>
+<th><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>波长范围（Wavelength）</td>
+<td>380 nm to 2510 nm</td>
+</tr>
+<tr class="even">
+<td>光谱分辨率 (FWHM, minimum)</td>
+<td>5nm ± 0.5 nm</td>
+</tr>
+<tr class="odd">
+<td>FOV（Field of View）</td>
+<td>36 ± 2 degrees with 600 resolved elements</td>
+</tr>
+<tr class="even">
+<td>IFOV（Instantaneous Field of View）</td>
+<td>1.0 1.4 mrad ± mrad</td>
+</tr>
+<tr class="odd">
+<td>Spatial Sampling (maximum observed at resolved elements)</td>
+<td>1.0 mrad ± 0.1 mrad</td>
+</tr>
+<tr class="even">
+<td>Spectral Distortion (smile)</td>
+<td>Uniformity &gt; 97%</td>
+</tr>
+<tr class="odd">
+<td>Spectral Distortion (keystone)</td>
+<td>Unformity &gt;97%</td>
+</tr>
+<tr class="even">
+<td>空间和光谱分辨率（FPA）</td>
+<td>480 (spectral direction) X 640 (cross track)</td>
+</tr>
+<tr class="odd">
+<td>帧率（Frame Rate）</td>
+<td>10 - 100 frames per second</td>
+</tr>
+<tr class="even">
+<td>Pixel Size</td>
+<td>27 microns x 27 microns</td>
+</tr>
+<tr class="odd">
+<td>Calibration</td>
+<td>On-board calibrator</td>
+</tr>
+<tr class="even">
+<td>数据量化（Data Resolution）</td>
+<td>14 bits</td>
+</tr>
+<tr class="odd">
+<td>Data Rate</td>
+<td>Up to 74 MB/s of throughput</td>
+</tr>
+<tr class="even">
+<td>Data Volume</td>
+<td>Up to 1.0 TB of raw data before disk swap</td>
+</tr>
+<tr class="odd">
+<td>Physical Volume</td>
+<td>83 cm (H) x 57 cm (Dia.) plus electronics boxes and racks</td>
+</tr>
+<tr class="even">
+<td>Mass</td>
+<td>465kg</td>
+</tr>
+<tr class="odd">
+<td>Vacuum Requirement</td>
+<td>10-4 torr</td>
+</tr>
+<tr class="even">
+<td>Ambient Operating Temperature</td>
+<td>-40 to +50C</td>
+</tr>
+<tr class="odd">
+<td>Maximum Altitude</td>
+<td>18 km</td>
+</tr>
+<tr class="even">
+<td>Cool-Down Time</td>
+<td>&lt; 48 hours</td>
+</tr>
+<tr class="odd">
+<td>Operational Time / Mission</td>
+<td>14 days</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>数据下载门户网站</strong></p>
+<ul>
+<li>2014年~2020年的数据可以从<code>AVIRIS-NG Data Portal</code> 网站下载：https://avirisng.jpl.nasa.gov/dataportal/</li>
+</ul>
+<figure>
+<img data-src="aviris-ng-data-portal.png" alt="AVIRIS-NG数据获取门户网站↑" /><figcaption aria-hidden="true">AVIRIS-NG数据获取门户网站↑</figcaption>
+</figure></li>
+</ul>
+<h2 id="参考文献">参考文献</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>AVIRIS-Classic门户，https://aviris.jpl.nasa.gov/index.html<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>AVIRIS-NG门户，https://aviris-ng.jpl.nasa.gov/index.html<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/305711eb/" title="AVIRIS 简介">https://whuhenry.github.io/posts/305711eb/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%AB%98%E5%85%89%E8%B0%B1/" rel="tag"># 高光谱</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E9%9B%86/" rel="tag"># 数据集</a>
+              <a href="/tags/AVIRIS/" rel="tag"># AVIRIS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/4ff4d618/" rel="prev" title="论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章">
+                  <i class="fa fa-chevron-left"></i> 论文笔记6 ：《From handcrafted to deep local features》——特征点提取和描述的综述性文章
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/a2c9f775/" rel="next" title="AVIRIS数据描述简介">
+                  AVIRIS数据描述简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1. 为什么要进行波段选择 高光谱图像一般通过连续的一百个或数百个窄观测波段，采集目标物在可见光近红外波段的反射能量信息。因此数据特点就是具备高谱段维度。这一点既是高光谱图像的优势，使高光谱图像能够根据连续的光谱曲线对地物有极强的区分能力；但与此同时在某些应用场景中也会带来很多的问题，例如图像分类问题中，多波段可能会导致“维数灾难”，也被叫做Hughes Peonomena。此外由于高光谱图像波">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于图论表示的高光谱波段选择方法（GRBS)论文笔记">
+<meta property="og:url" content="https://whuhenry.github.io/posts/2d746d7d/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="1. 为什么要进行波段选择 高光谱图像一般通过连续的一百个或数百个窄观测波段，采集目标物在可见光近红外波段的反射能量信息。因此数据特点就是具备高谱段维度。这一点既是高光谱图像的优势，使高光谱图像能够根据连续的光谱曲线对地物有极强的区分能力；但与此同时在某些应用场景中也会带来很多的问题，例如图像分类问题中，多波段可能会导致“维数灾难”，也被叫做Hughes Peonomena。此外由于高光谱图像波">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/2d746d7d/outlier_vs_exemplars.png">
+<meta property="article:published_time" content="2018-05-10T04:23:27.000Z">
+<meta property="article:modified_time" content="2020-12-30T02:43:54.241Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="论文笔记">
+<meta property="article:tag" content="高光谱">
+<meta property="article:tag" content="降维">
+<meta property="article:tag" content="波段选择">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/2d746d7d/outlier_vs_exemplars.png">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/2d746d7d/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;2d746d7d&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;2d746d7d&#x2F;&quot;,&quot;title&quot;:&quot;基于图论表示的高光谱波段选择方法（GRBS)论文笔记&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>基于图论表示的高光谱波段选择方法（GRBS)论文笔记 | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%B3%A2%E6%AE%B5%E9%80%89%E6%8B%A9"><span class="nav-text">1. 为什么要进行波段选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A2%E6%AE%B5%E9%80%89%E6%8B%A9%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-text">2. 波段选择的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grbsgraph-representation-based-band-selection%E6%96%B9%E6%B3%95"><span class="nav-text">3. GRBS（Graph Representation based Band Selection）方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/2d746d7d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于图论表示的高光谱波段选择方法（GRBS)论文笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-05-10 12:23:27" itemprop="dateCreated datePublished" datetime="2018-05-10T12:23:27+08:00">2018-05-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-30 10:43:54" itemprop="dateModified" datetime="2020-12-30T10:43:54+08:00">2020-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="为什么要进行波段选择">1. 为什么要进行波段选择</h2>
+<p>高光谱图像一般通过连续的一百个或数百个窄观测波段，采集目标物在可见光近红外波段的反射能量信息。因此数据特点就是具备高谱段维度。这一点既是高光谱图像的优势，使高光谱图像能够根据连续的光谱曲线对地物有极强的区分能力；但与此同时在某些应用场景中也会带来很多的问题，例如图像分类问题中，多波段可能会导致“维数灾难”，也被叫做<em>Hughes Peonomena</em>。此外由于高光谱图像波段的连续性，使得相邻波段间的相关系数很高</p>
+<span id="more"></span>
+<h2 id="波段选择的方法">2. 波段选择的方法</h2>
+<p>根据论文<em>A robust and efficient band selection method using graph representation for hyperspectral imagery</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>中所述，主要选择方法可以包括使用监督的方法和非监督的方法，因为作者希望波段选择能够全自动进行，因此重点关注非监督方法。而非监督方法又可以分为如下几种：</p>
+<ul>
+<li><p><strong>波段优先方法（Band prioritization)</strong></p>
+<p>首先定义每个波段的代价函数或者标准（criteria），然后根据这个数值进行排序并选择，一般来说这个代价越高，波段权重更高。这一类方法计算快，但是区分性差，很容易选择出连续的波段。这类算饭的典型代表为<em>information divergence band selection</em></p></li>
+<li><p><strong>组合优化方法（Combinatorial Optimization）</strong></p>
+<p>这一类方法将抑制相关性也纳入算法中，典型算法包括<code>optimum index factor (OIF)</code> ， <code>maximum ellipsoid volume (MEV)</code>， <code>orthogonal subspace projection based band selection (OSP-BS)</code> 和<code>constrained band selection (CBS)</code> ，这些算法通常计算复杂度高，而且通常倾向于选择outliers，而不是exemplars。下面的插图<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>很形象的说明这个问题。具体到波段选择结果上，也就是很多选出来的波段其实是噪声波段。</p></li>
+</ul>
+<img data-src="/posts/2d746d7d/outlier_vs_exemplars.png" class="" title="Outlier vs Exemplars">
+<ul>
+<li><p><strong>基于聚类的方法</strong></p>
+<p>基本思想为将波段按照相似度进行聚类，然后选择靠近聚类中心的波段作为特征波段。这一类方法对于outlier有很好的鲁棒性，但是受噪声影响大，而且计算复杂度高。这个和作者之前使用谱聚类方法结合波段互信息进行分类的实验过程非常吻合，使用全波原始波段时候，从200+的波段中选出的前10个特征波段全部是噪声波段，导致后面只有把这些波段去掉才能获得较好谱聚类结果，同时使用CPU进行计算时非常慢，只用通过采用GPU加速的方法才能够在几分钟的时间内得到结果。</p></li>
+</ul>
+<h2 id="grbsgraph-representation-based-band-selection方法">3. GRBS（Graph Representation based Band Selection）方法</h2>
+<p>在Sun Kang et.al. 的论文<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>中，针对上面的不同算法的优劣势，提出了一个基于图论的波段选择方法，从实现细节来看，该方法从波段优先方法出发，结合了数据科学中的特征选择（Feature Selection）算法，原理相对非常简单直接，计算复杂度低，同时论文提出该方法对于噪声和outlier有很好的鲁棒性，能够在标准数据集的上提取结果在分类问题中有良好的表现。具体的流程如下：</p>
+<ul>
+<li><strong>邻接矩阵构建</strong></li>
+</ul>
+<p>该方法是以图论为基础的方法，将每个波段看做论文中的顶点<span class="math inline">\(V\)</span>，将波段间的相似度看做边<span class="math inline">\(E\)</span>，这样可以构建一个全连接图<span class="math inline">\(G=(\mathbf{V},\mathbf{E})\)</span>，最简单的<span class="math inline">\(\mathbf{E}\)</span>的计算公式如下：</p>
+
+$$
+E := \left\{ 
+\begin{aligned}
+E_{ij} & = exp(-\frac{||\boldsymbol{v}_i - \boldsymbol{v}_j||^2}{2\sigma^2}) \\
+E_{ii} & = 0 \\
+\end{aligned}
+\right.
+$$
+
+<p>这样整个边的值就可以构成一个邻接矩阵，而根据这个邻接矩阵可以算出每个波段的<strong>度</strong>（<em>degree</em>），可以用下面公式表达： <span class="math display">\[
+d_i=\sum\limits_{j=1}^{n}E_{ij}
+\]</span> 其中<span class="math inline">\(n\)</span>是波段的数量，也就是说这个<strong>度</strong>表示该波段其其他所有波段相似度之和，这个值约小表示这个波段越独立，越大表示这个波段越集群。因此，最简单直接的考虑就是挑选这个度最小的前<span class="math inline">\(k\)</span>个波段作为最终选择的波段，但是需要注意，相似度越高的波段，这个<strong>度</strong>约接近，也就是可能会选出非常相似的<span class="math inline">\(k\)</span>个波段，这显然不是我们想要的结果。因此需要一个方法来抑制相似波段的选择。</p>
+<p>因此，论文中对于一个子波段集合，定义了下面的准则函数，来计算这个子波段集合的是否具有高的表达所有原始波段的能力以及子波段集合内部的相似度是否较低： <span class="math display">\[
+J(\mathbf{B})=\frac{\sum\limits_{i\in \mathbf{B}}d_i}{\sum\limits_{i\in\mathbf{B}}\sum\limits_{j\in\mathbf{B}}E_{ij}}
+\]</span> 因此最终目标就是从原始的<span class="math inline">\(n\)</span>个波段中选择<span class="math inline">\(k\)</span>个波段，使得<span class="math inline">\(J(\mathbf{B})\)</span>最小化。</p>
+<ul>
+<li><strong>相似度计算优化</strong></li>
+</ul>
+<p>上面所述的相似度计算采用了最简单的欧式距离，这种计算会导致对于有噪声的谱段非常敏感，使得噪声谱段和其他所有波段的相似度均较差，因此论文对于相似度计算进行了正则化处理，使其对噪声不在敏感。</p>
+<p>将原始公式展开可得：</p>
+
+$$
+\mathop{E_{ij}}\limits_{i \ne j}=exp(-\frac{||\mathbf{v_i}-\mathbf{v_j}||^2}{2 {\sigma}^2})=exp(-\frac{\mathbf{v_i}^\mathbf{T} \mathbf{v_i} + \mathbf{v_j}^\mathbf{T} \mathbf{v_j} - 2 \mathbf{v_i}^\mathbf{T} \mathbf{v_j} }{2 \sigma ^2})
+$$
+
+<p>上下除以向量的大小，可以得到下面结果： <span class="math display">\[
+\mathop{E_{ij}}\limits_{i \ne j}=exp(-\frac{1-\rho_{ij}}{\sigma^2})
+\]</span> 公式中<span class="math inline">\(\rho_{ij}=\frac{\mathbf{v_i^T v_j}}{||\mathbf{v_i}||||\mathbf{v_j}||}\)</span>，是第<span class="math inline">\(i\)</span>个波段和第<span class="math inline">\(j\)</span>个波段间的相关系数。经过这样的正则化计算，可以有效降低噪声的影响。同时这个正则化还能够处理不同的动态范围数据，可以保证使用相同的参数处理所有数据。</p>
+<ul>
+<li><strong>特征波段子集选择</strong></li>
+</ul>
+<p>最后就是根据优化后的相似度计算函数计算<span class="math inline">\(J(\mathbf{B})\)</span>，这样就将问题转换为从<span class="math inline">\(n\)</span>个波段中选择<span class="math inline">\(k\)</span>个波段，使得<span class="math inline">\(J(\mathbf{B})\)</span>最小化，这个问题本身是NP难题，但是可以使用数据科学中的特征选择算法来进行选择，方法可以参考这篇博客（<a target="_blank" rel="noopener" href="http://www.cnblogs.com/heaad/archive/2011/01/02/1924088.html">特征选择常用算法综述</a>）<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>，本文选择比较简单的SFS和SBS方法。思路就是基本的贪心算法，从全集一个一个选择或者一个一个删除，使得得到的子集最小化，这样计算效率非常高，整体计算时间非常短，可以控制在秒级。</p>
+<h2 id="参考文献">参考文献</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Sun, K., Geng, X., Chen, J., Ji, L., Tang, H., Zhao, Y., &amp; Xu, M. (2016). A robust and efficient band selection method using graph representation for hyperspectral imagery. International Journal of Remote Sensing, 37(20), 4874–4889. https://doi.org/10.1080/01431161.2016.1225173<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Sun, K., Geng, X., Chen, J., Ji, L., Tang, H., Zhao, Y., &amp; Xu, M. (2016). A robust and efficient band selection method using graph representation for hyperspectral imagery. International Journal of Remote Sensing, 37(20), 4874–4889. https://doi.org/10.1080/01431161.2016.1225173<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Sun, K., Geng, X., Chen, J., Ji, L., Tang, H., Zhao, Y., &amp; Xu, M. (2016). A robust and efficient band selection method using graph representation for hyperspectral imagery. International Journal of Remote Sensing, 37(20), 4874–4889. https://doi.org/10.1080/01431161.2016.1225173<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p><a target="_blank" rel="noopener" href="http://www.cnblogs.com/heaad/archive/2011/01/02/1924088.html">特征选择常用算法综述</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/2d746d7d/" title="基于图论表示的高光谱波段选择方法（GRBS)论文笔记">https://whuhenry.github.io/posts/2d746d7d/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag"># 论文笔记</a>
+              <a href="/tags/%E9%AB%98%E5%85%89%E8%B0%B1/" rel="tag"># 高光谱</a>
+              <a href="/tags/%E9%99%8D%E7%BB%B4/" rel="tag"># 降维</a>
+              <a href="/tags/%E6%B3%A2%E6%AE%B5%E9%80%89%E6%8B%A9/" rel="tag"># 波段选择</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/3e03a1fd/" rel="prev" title="PMVS论文随笔（1）">
+                  <i class="fa fa-chevron-left"></i> PMVS论文随笔（1）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/98ea8b5d/" rel="next" title="SCI高引论文：非监督高光谱波段选择的MDPP方法">
+                  SCI高引论文：非监督高光谱波段选择的MDPP方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

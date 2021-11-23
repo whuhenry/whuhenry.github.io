@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="AVIRIS高光谱成像光谱仪采集得到的原始图像为辐亮度图像，经过校正后的L1级产品为地表辐亮度信息。但是许多时候，我们更希望知道地面目标物的反射率信息，并且这一信息应该与在地面使用地物光谱仪（如常见的ASD光谱仪）采集的反射率曲线应该一致。因此从原始的辐亮度（Radiance）图像转换生成反射率图像通常需要进行大气校正，水汽吸收校正等过程，最终消除大气传输过程中的各种干扰因素影响，得到最终的反">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVIRIS反射率数据简介">
+<meta property="og:url" content="https://whuhenry.github.io/posts/de885869/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="AVIRIS高光谱成像光谱仪采集得到的原始图像为辐亮度图像，经过校正后的L1级产品为地表辐亮度信息。但是许多时候，我们更希望知道地面目标物的反射率信息，并且这一信息应该与在地面使用地物光谱仪（如常见的ASD光谱仪）采集的反射率曲线应该一致。因此从原始的辐亮度（Radiance）图像转换生成反射率图像通常需要进行大气校正，水汽吸收校正等过程，最终消除大气传输过程中的各种干扰因素影响，得到最终的反">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/de885869/image-20200601200939930.png">
+<meta property="og:image" content="https://whuhenry.github.io/posts/de885869/image-20200601203133036.png">
+<meta property="article:published_time" content="2020-05-31T13:10:48.000Z">
+<meta property="article:modified_time" content="2021-01-02T11:05:38.742Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="高光谱">
+<meta property="article:tag" content="数据集">
+<meta property="article:tag" content="AVIRIS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/de885869/image-20200601200939930.png">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/de885869/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;de885869&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;de885869&#x2F;&quot;,&quot;title&quot;:&quot;AVIRIS反射率数据简介&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>AVIRIS反射率数据简介 | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="nav-text">1. 基本说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%B0%94%E6%A0%A1%E6%AD%A3"><span class="nav-text">2. 大气校正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E6%A0%A1%E6%AD%A3"><span class="nav-text">3. 经验校正</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%95%B0%E6%8D%AE%E7%AE%80%E4%BB%8B"><span class="nav-text">4. 实际数据简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-text">参考文档</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/de885869/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AVIRIS反射率数据简介
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-31 21:10:48" itemprop="dateCreated datePublished" datetime="2020-05-31T21:10:48+08:00">2020-05-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-01-02 19:05:38" itemprop="dateModified" datetime="2021-01-02T19:05:38+08:00">2021-01-02</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div class="note info"><p><img data-src="/posts/de885869/image-20200601200939930.png" class="" title="This is an example image"></p>
+<p>AVIRIS高光谱成像光谱仪采集得到的原始图像为辐亮度图像，经过校正后的L1级产品为地表辐亮度信息。但是许多时候，我们更希望知道地面目标物的反射率信息，并且这一信息应该与在地面使用地物光谱仪（如常见的ASD光谱仪）采集的反射率曲线应该一致。因此从原始的辐亮度（Radiance）图像转换生成反射率图像通常需要进行大气校正，水汽吸收校正等过程，最终消除大气传输过程中的各种干扰因素影响，得到最终的反射率曲线。需要注意的是，由于大气水汽吸收的影响，如上图所示，在特定波长波段（1400nm左右与1900nm左右）信号强度非常弱，数据信噪比差，通常会将这些波段认定为无效波段。</p>
+</div>
+<span id="more"></span>
+<div class="note warning"><p><strong>特别注意</strong>：由于AVIRIS服役时间较长，数据采集和处理流程应该经历过多次优化，目前官方文档中介绍反射率图像生成和描述方法中提到的部分描述文件在当前下载到的反射率文件中不存在。因此我综合多个官方文档来理解和描述当前反射率图像数据，可能存在错误。</p>
+</div>
+<h2 id="基本说明">1. 基本说明</h2>
+<p>根据官方文档的描述<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，将原始的校正后的AVIRIS辐亮度数据（Radiance Data），通过高光谱-红外图像L2级处理流程，转换生成反射率信息。该处理只针对<code>HyspIRI Precursor Data Sets</code>进行，也就是说只有部分图像有对应的反射率图像。文档中具体介绍了该处理流程中的使用的算法、理论假设以及最终结果数据组织等信息。网站上列出的文档最后更新日期为2013年10月，但是在下载到的数据中，有更新版本的文档（最后更新日期为2014年8月），最主要的不同是2014年版本中删除了关于结果数据组织的内容。因为13年版本描述的数据组织方式与我下载的几景图像的数据组织完全不同，可能后续更新过，但是并没有相关文档说明。</p>
+<p>根据AVIRIS HyspIRI preparatory campaign measurements任务中关于L2级大气校正算法的描述<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>，如下图所示，从辐亮度图像到反射率图像主要经过了大气校正和残差抑制两个步骤。具体描述如下。</p>
+<figure>
+<img data-src="image-20200601203133036.png" alt="L2大气校正流程以及反射率图像生成 ↑" /><figcaption aria-hidden="true">L2大气校正流程以及反射率图像生成<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> ↑</figcaption>
+</figure>
+<h2 id="大气校正">2. 大气校正</h2>
+<p>大气校正是基于ATREM（Atmosphere Removal Algorithm）算法进行的，该算法通过水蒸气、二氧化碳、臭氧、氮氧化物、一氧化碳、甲烷和氧气的吸收作用来反演<strong>等比例的表面反射率</strong>（scaled surface reflectance）。根据这些气体吸收模型，再结合图像的成像几何，可以联合估计400~2500nm的大气透射率。大气散射效应则通过6S模型进行估计，6S模型是利用940nm和1140nm处的水汽吸收特征来反演水蒸气柱浓度，进而估算得到朗伯体表面反射率。</p>
+<p>在HyspIRI数据预处理流程中，还增加几个额外的特征：HITRAN 2012 line list中的块吸收，同时估计液态、气态和固态水的三相反演结果。压力高度（Pressure Altitude）则使用氧气A波段的深度进行反演，在成像目标中存在大范围高程变化和多光学路径情况下，该方法能够提高反演精度。</p>
+<h2 id="经验校正">3. 经验校正</h2>
+<p>最终，使用实地对应位置（in situ）的目标测量结果，通过经验模型，来修正表面反射率结果。具体的，为每个波段估计一个<strong>改正系数</strong>项，使得最终机载图像的光谱曲线与实地测量的同名点地物光谱曲线尽量一致。这个<strong>改正系数</strong>存储在以.smth为扩展名的额外对应文件中。如果研究人员希望使用原始数据，那么可以通过将网站提供的校正后的图像逐波段除以该<strong>改正系数</strong>即可。</p>
+<h2 id="实际数据简介">4. 实际数据简介</h2>
+<p>从网站上实际下载的一景反射率图像中可能包含数个文件，其具体含义如下表所示（<strong><code>注：该表格为作者结合文档与数据情况理解制成，可能存在错误</code></strong>）</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>文件名称</th>
+<th>文件含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*_corr_v1</code>, <code>*_corr_v1.hdr</code></td>
+<td>ENVI格式的反射率图像，该图像为最终矫正结果。需要注意的是，该图像像素值可能为整型（我下载的2013~2015的几景图像均为整型，2018年为浮点型），其含义是将原始浮点型反射率乘以10000得到的整数部分。也就是说如果想得到反射率数据，需要将像素值除以10000即可。例如某个像素值为2500，则该像素对应的实际反射率为0.25（2500 ÷ 10000 = 0.25）。<br />此外文档中提到的经验<strong>改正系数</strong>存储文件*.smth在下载得到的数据包中并不存在，而在ENVI数据头文件中，存在一项名为<code>correction factors</code>的浮点数列表，其中包含n个浮点数（n为波段数量），我猜测这个应该就是文档中提到的经验<strong>改正系数</strong></td>
+</tr>
+<tr class="even">
+<td><code>*_h2o_v1</code>，<code>*_h2o_v1.hdr</code></td>
+<td>这个ENVI图像文件包含三个波段数据，每个波段图像的长宽与反射率图像相同，疑似为文档中提到的水汽的三相反演结果</td>
+</tr>
+<tr class="odd">
+<td><code>*_README_v1.txt</code></td>
+<td>这个就是反射率处理流程的官方说明文档，不同数据中该文件几乎相同，只是最后更新版本的区别。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考文档">参考文档</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><a target="_blank" rel="noopener" href="http://aviris.jpl.nasa.gov/documents/AVIRIS_HyspIRI_Reflectance_Data.readme">AVIRIS Surface Reflectance Data Distribution Document - HyspIRI Precursor Data Sets ONLY</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://hyspiri.jpl.nasa.gov/downloads/2014_Symposium/day2/0900_pres_HyspIRI_level2_140604c.pdf">Level 2 processing of AVIRIS HyspIRI preparatory campaign measurements</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p><a target="_blank" rel="noopener" href="https://hyspiri.jpl.nasa.gov/downloads/2014_Symposium/day2/0900_pres_HyspIRI_level2_140604c.pdf">Level 2 processing of AVIRIS HyspIRI preparatory campaign measurements</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/de885869/" title="AVIRIS反射率数据简介">https://whuhenry.github.io/posts/de885869/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%AB%98%E5%85%89%E8%B0%B1/" rel="tag"># 高光谱</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E9%9B%86/" rel="tag"># 数据集</a>
+              <a href="/tags/AVIRIS/" rel="tag"># AVIRIS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/a2c9f775/" rel="prev" title="AVIRIS数据描述简介">
+                  <i class="fa fa-chevron-left"></i> AVIRIS数据描述简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/f53b6976/" rel="next" title="Gnome Bug：无法点击、永不消逝的授权对话框">
+                  Gnome Bug：无法点击、永不消逝的授权对话框 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

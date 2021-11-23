@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="1. 前言 Middlebury是计算机视觉和三维中间领域著名的高校，特别是提供了著名的立体匹配benchmark数据库，并不断提供新数据的更新。在MVS领域，也同样提供了经典的benchmark数据库，包含两个物体-Temple和Dino，其中Temple有312张相片，Dino有363张相片，如下图所示。并且每个物体还提供了由激光Lidar测量得到的地面真值（Groud Truth）数据，因">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms》">
+<meta property="og:url" content="https://whuhenry.github.io/posts/40a4b471/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="1. 前言 Middlebury是计算机视觉和三维中间领域著名的高校，特别是提供了著名的立体匹配benchmark数据库，并不断提供新数据的更新。在MVS领域，也同样提供了经典的benchmark数据库，包含两个物体-Temple和Dino，其中Temple有312张相片，Dino有363张相片，如下图所示。并且每个物体还提供了由激光Lidar测量得到的地面真值（Groud Truth）数据，因">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/40a4b471/temple0119.jpg">
+<meta property="og:image" content="https://whuhenry.github.io/posts/40a4b471/dino.jpg">
+<meta property="article:published_time" content="2017-07-03T13:30:33.000Z">
+<meta property="article:modified_time" content="2020-12-30T02:43:54.178Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="MVS">
+<meta property="article:tag" content="经典文献">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/40a4b471/temple0119.jpg">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/40a4b471/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;40a4b471&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;40a4b471&#x2F;&quot;,&quot;title&quot;:&quot;MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms》&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms》 | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mvs%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-text">2. MVS算法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E8%A1%A8%E8%BE%BEscene-representation"><span class="nav-text">2.1 场景表达（Scene Representation）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E4%B8%80%E8%87%B4%E6%80%A7%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95photo-consistency-measure"><span class="nav-text">2.2 图像一致性计算方法（Photo Consistency Measure）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%A9%E6%96%B9%E7%9A%84%E5%9B%BE%E5%83%8F%E4%B8%80%E8%87%B4%E6%80%A7%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-text">1. 基于物方的图像一致性计算方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%83%8F%E6%96%B9%E7%9A%84%E5%9B%BE%E5%83%8F%E4%B8%80%E8%87%B4%E6%80%A7%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-text">2. 基于像方的图像一致性计算方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%81%E6%80%A7%E6%A8%A1%E5%9E%8Bvisible-model"><span class="nav-text">2.3 可见性模型（Visible Model）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E9%87%8D%E5%BB%BA%E6%97%B6%E4%BC%98%E5%85%88%E8%80%83%E8%99%91%E7%9A%84%E5%BD%A2%E7%8A%B6%E7%BA%A6%E6%9D%9Fshape-prior"><span class="nav-text">2.4 在重建时优先考虑的形状约束（Shape Prior）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%BB%BA%E7%AE%97%E6%B3%95reconstruction-algorithm"><span class="nav-text">2.5 重建算法（Reconstruction Algorithm）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9D%A1%E4%BB%B6initialization-requirements"><span class="nav-text">2.6 初始化条件（Initialization Requirements）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mvs%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7"><span class="nav-text">3. MVS算法的评价</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E7%A1%AE%E6%80%A7"><span class="nav-text">1. 准确性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-text">2. 完整性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/40a4b471/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms》
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-07-03 21:30:33" itemprop="dateCreated datePublished" datetime="2017-07-03T21:30:33+08:00">2017-07-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-12-30 10:43:54" itemprop="dateModified" datetime="2020-12-30T10:43:54+08:00">2020-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MVS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">MVS学习笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言">1. 前言</h2>
+<p>Middlebury是计算机视觉和三维中间领域著名的高校，特别是提供了著名的立体匹配benchmark数据库，并不断提供新数据的更新。在MVS领域，也同样提供了经典的benchmark数据库，包含两个物体-Temple和Dino，其中Temple有312张相片，Dino有363张相片，如下图所示。并且每个物体还提供了由激光Lidar测量得到的地面真值（Groud Truth）数据，因此可以用来准确的衡量不同MVS算法的准确性（重建的三维模型与真值的差异）和完整性（有多少真值包含在重建的三维模型中）。</p>
+<p>在建立该数据库的过程中，Middlebury的研究团队分类总结了当时（2006年）的state-of-art的算法，提出了算法有效性评价标准。基于该标准，并使用该数据库验证这些算法的有效性，最终形成该文章<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。这篇文章是后来几乎每一篇研究MVS算法的文章的必引参考文献，其中对于算法的分类介绍和有效性验证规则十分经典，下面分别进行总结。</p>
+<span id="more"></span>
+<img data-src="/posts/40a4b471/temple0119.jpg" class="" title="Temple">
+<img data-src="/posts/40a4b471/dino.jpg" class="" title="Dino">
+<h2 id="mvs算法分类">2. MVS算法分类</h2>
+<p>MVS是指Multiview Stereo，具体来说是通过多幅已知拍摄方位信息（外方位元素）的图像来估计目标三维信息的算法，数据基于图像的三维重建中一大类非常重要和实用的算法。文章中提到类似的方法还有双目或者三目立体匹配方法，这一类方法能够获得单一的视差图，但是受限于照片数量和拍摄角度，无法覆盖物体的全部表面。另一类方法是多基线立体重建方法，可以构建稀疏特征点集。</p>
+<p>一般来说，MVS可以按照如下6个方面的标准进行分类：</p>
+<div class="note info"><ol type="1">
+<li>场景表达方式（scene representation);</li>
+<li>图像一致性计算方法（photo consistency measure）；</li>
+<li>可见性模型（visible model）；</li>
+<li>在重建时优先考虑的形状约束（shape prior）；</li>
+<li>重建算法（reconstruction algorithm）；</li>
+<li>初始化条件（initialization requirements）。</li>
+</ol>
+</div>
+<p>下面分别对每个方面进行简单的描述。</p>
+<h3 id="场景表达scene-representation">2.1 场景表达（Scene Representation）</h3>
+<p>场景表达是指重建得到的三维场景使用什么样的数学模型进行表达，一般来说有如下4种方式：</p>
+<div class="note info"><ol type="1">
+<li>体素（Voxel）</li>
+<li>层次级（level set）：记录每个点到某个最近平面的距离</li>
+<li>多边形实体（polygon mesh）：这是应该是我们最熟悉的表达方式，也是人工三维建模最常见的数据表达方式</li>
+<li>深度图（depth map）：一般基于像方立体匹配算法算法生成的结果就是深度图，每个像素的灰度值代表该像素距离当前图像平面的距离。</li>
+</ol>
+</div>
+<h3 id="图像一致性计算方法photo-consistency-measure">2.2 图像一致性计算方法（Photo Consistency Measure）</h3>
+<p>这部分和双目立体匹配中用到的图像一致性计算方法类似，但是考虑到MVS本身的特殊性，一般来说，MVS中图像一致性计算根据搜索内容的不同分为以下两种方法</p>
+<div class="note default"><h4 id="基于物方的图像一致性计算方法">1. 基于物方的图像一致性计算方法</h4>
+<p>通常使用体素表达方法，搜索空间中的每个体素在对应两幅图像中的投影位置的图像一致性，如果该一致性计算值小于某个阈值，则该体素可以认为是代表了真实物体。</p>
+</div>
+<div class="note default"><h4 id="基于像方的图像一致性计算方法">2. 基于像方的图像一致性计算方法</h4>
+<p>根据极线约束，对于一幅图像的某个点，搜索其对应极线上最相似的匹配点（一致性最高），这种方法通常在双目立体视觉中使用。</p>
+</div>
+<p>需要注意的是这两种方法都是基于物体表面为Lambartian的假设，但是也有进一步的研究利用BRDF进行计算，或者考虑物体的阴影，消除物体阴影对于一致性计算的影响。</p>
+<h3 id="可见性模型visible-model">2.3 可见性模型（Visible Model）</h3>
+<p>可见性模型是在计算图像一致性时，决定究竟哪些图像和参考图像有共视区域，可以进行图像一致性计算的方法。一般来说，有如下三种模型</p>
+<ul>
+<li>几何模型。</li>
+<li>准几何模型。</li>
+<li>基于粗差（outlier）的模型，通常是将遮挡视为粗差，因为对于一个点来说，在两视中被看到的可能性大于被遮挡的可能性。</li>
+</ul>
+<h3 id="在重建时优先考虑的形状约束shape-prior">2.4 在重建时优先考虑的形状约束（Shape Prior）</h3>
+<p>由于常见的弱纹理（大范围区域颜色相同或者相近）或者无纹理等原因，导致在匹配是在这些区域无法得到良好的匹配结果，因此需要引入形状约束来近似约束这些区域的可能形状，可以使得最终得到的场景具有某种特殊的性质。这种方法在双目立体匹配的研究中是极为常见的方法，但是在MVS中，由于多幅图像提供更强的约束，较少使用这种方法。常见的形状约束方法如下：</p>
+<ol type="1">
+<li>基于场景重建的技术通常采用“最少平面数”约束，因为过多的多边形面片会使得场景过于破碎。</li>
+<li>基于体素和Space carve的重建方法通常增加“最多平面数"约束，使得表面具有更加丰富的细节。</li>
+<li>在基于像方的匹配方法中，通常添加局部平滑约束：例如双目立体匹配中常见的piece-wise smothness，假设场景中的弱纹理区域是与摄影平面平行的小平面。</li>
+</ol>
+<h3 id="重建算法reconstruction-algorithm">2.5 重建算法（Reconstruction Algorithm）</h3>
+<ol type="1">
+<li>体素着色算法：从一个volumn中提取一个平面出来</li>
+<li>通过递推的方法展开一个平面：在过程中最小化代价函数（based on voxels， level-set， mesh)</li>
+<li>基于像方的匹配，生成深度图，并对不同图像间的深度图进行融合</li>
+<li>提取特征点，拟合一个面来重建特征</li>
+</ol>
+<h3 id="初始化条件initialization-requirements">2.6 初始化条件（Initialization Requirements）</h3>
+<ol type="1">
+<li>需要图像集（毕竟是基于图像的三维重建，需要尽可能多的多角度拍摄的同一场景的图像）</li>
+<li>几乎所有的算法都要求或者假设待重建三维目标的空间范围或者scene geometry</li>
+<li>基于像方的方法要求最大/最小视差（这一点要求和2类似）</li>
+</ol>
+<h2 id="mvs算法的评价">3. MVS算法的评价</h2>
+<p>文章中提出，对于MVS算法应该从一下两个方面进行评价</p>
+<div class="note default"><h3 id="准确性">1. 准确性</h3>
+<p>准确性是指重建结果与真值间的差距，一般方法是，对于重建结果中的一个三维空间点，寻找其对应真值中的点，计算其距离，最后统计所有点距离真值的距离。 根据统计结果来评价重建结果的准确性。</p>
+</div>
+<div class="note default"><h3 id="完整性">2. 完整性</h3>
+<p>完整性是指有多少真值被包含在重建结果中。一般方法与准确性计算类似，但是是计算真值中的点到重建结果中最近点的距离，统计所有真值点的计算结果来评价重建的完整性。需要注意的是，如果真值中的点距离重建结果中最近点的距离大于某个阈值，则认为是没有找打匹配点，也就是该真值点没有被覆盖。</p>
+</div>
+<h2 id="参考文献">参考文献</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Seitz, S. M., Curless, B., Diebel, J., Scharstein, D., &amp; Szeliski, R. (n.d.). A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms. In 2006 IEEE Computer Society Conference on Computer Vision and Pattern Recognition - Volume 1 (CVPR’06) (Vol. 1, pp. 519–528). IEEE. https://doi.org/10.1109/CVPR.2006.19<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/40a4b471/" title="MVS学习笔记(1)——经典文献《A Comparison and Evaluation of Multi-View Stereo Reconstruction Algorithms》">https://whuhenry.github.io/posts/40a4b471/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/MVS/" rel="tag"># MVS</a>
+              <a href="/tags/%E7%BB%8F%E5%85%B8%E6%96%87%E7%8C%AE/" rel="tag"># 经典文献</a>
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/c940d2cf/" rel="prev" title="GIT学习相关">
+                  <i class="fa fa-chevron-left"></i> GIT学习相关
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/b3af337a/" rel="next" title="论文笔记1：低空无人飞行器影像处理流程">
+                  论文笔记1：低空无人飞行器影像处理流程 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

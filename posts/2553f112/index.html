@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;whuhenry.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;always&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="0. 基本信息  引用信息   Y. Cai, X. Liu and Z. Cai, &quot;BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image,&quot; in IEEE Transactions on Geoscience and Remote Sensing, vol. 58, no. 3, pp.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文笔记——BS-Nets An End-to-End Framework for Band Selection of Hyperspectral Image">
+<meta property="og:url" content="https://whuhenry.github.io/posts/2553f112/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="0. 基本信息  引用信息   Y. Cai, X. Liu and Z. Cai, &quot;BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image,&quot; in IEEE Transactions on Geoscience and Remote Sensing, vol. 58, no. 3, pp.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f48a7b4ccb38464d9d9dfab410e3d825~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/43ff9a5d2e1944aeb53ac0a38fcede75~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f08d273229c3488295ea4b6e210e0bc6~tplv-k3u1fbpfcp-watermark.image">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2547d488c3cf4cb8b3931ee46bf967a0~tplv-k3u1fbpfcp-watermark.image">
+<meta property="article:published_time" content="2021-03-01T15:27:35.000Z">
+<meta property="article:modified_time" content="2021-06-08T06:56:19.465Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="论文笔记">
+<meta property="article:tag" content="波段选择">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f48a7b4ccb38464d9d9dfab410e3d825~tplv-k3u1fbpfcp-watermark.image">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/2553f112/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;whuhenry.github.io&#x2F;posts&#x2F;2553f112&#x2F;&quot;,&quot;path&quot;:&quot;posts&#x2F;2553f112&#x2F;&quot;,&quot;title&quot;:&quot;论文笔记——BS-Nets An End-to-End Framework for Band Selection of Hyperspectral Image&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>论文笔记——BS-Nets An End-to-End Framework for Band Selection of Hyperspectral Image | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-text">0. 基本信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-text">1. 相关基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6attention-mechanism"><span class="nav-text">1.1 注意力机制（Attention Mechanism）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%81%87%E8%AE%BE%E5%AF%B9%E5%BA%94%E8%AE%BA%E6%96%87ii-d-motivation"><span class="nav-text">1.2 基本假设（对应论文II-D Motivation）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-text">2. 网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-text">2.1 总体结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-text">2.2 具体实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bs-net-fc"><span class="nav-text">BS-Net-FC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bs-net-conv"><span class="nav-text">BS-Net-Conv</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">3. 实现</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/2553f112/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文笔记——BS-Nets An End-to-End Framework for Band Selection of Hyperspectral Image
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-01 23:27:35" itemprop="dateCreated datePublished" datetime="2021-03-01T23:27:35+08:00">2021-03-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-08 14:56:19" itemprop="dateModified" datetime="2021-06-08T14:56:19+08:00">2021-06-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="基本信息">0. 基本信息</h1>
+<ul>
+<li>引用信息</li>
+</ul>
+<blockquote>
+<p>Y. Cai, X. Liu and Z. Cai, "BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image," in IEEE Transactions on Geoscience and Remote Sensing, vol. 58, no. 3, pp. 1969-1984, March 2020, doi: 10.1109/TGRS.2019.2951433.</p>
+</blockquote>
+<ul>
+<li>bibtex entry <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;Cai2020BSNet,</span><br><span class="line">  author  = &#123;Y. &#123;Cai&#125; and X. &#123;Liu&#125; and Z. &#123;Cai&#125;&#125;,</span><br><span class="line">  journal = &#123;IEEE Transactions on Geoscience and Remote Sensing&#125;,</span><br><span class="line">  title   = &#123;BS-Nets: An End-to-End Framework for Band Selection of Hyperspectral Image&#125;,</span><br><span class="line">  year    = &#123;2020&#125;,</span><br><span class="line">  volume  = &#123;58&#125;,</span><br><span class="line">  number  = &#123;3&#125;,</span><br><span class="line">  pages   = &#123;1969-1984&#125;,</span><br><span class="line">  doi     = &#123;10.1109/TGRS.2019.2951433&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="相关基础知识">1. 相关基础知识</h1>
+<h2 id="注意力机制attention-mechanism">1.1 注意力机制（Attention Mechanism）</h2>
+<p>注意力机制是模拟人的行为，对于图像的不同部分有不同的注意力程度。具体的，可以用数学公式表达如下：</p>
+<p><span class="math display">\[
+a = f_\Theta(x)
+\]</span></p>
+<p>其中<span class="math inline">\(a\)</span>叫做基于参数<span class="math inline">\(\Theta\)</span>使用注意力模块<span class="math inline">\(f\)</span>生成的Attention map，通常<span class="math inline">\(f\)</span>包含一个gation function来控制Attention map的尺度，如softmax函数。</p>
+<p>具体的对于一个feature map <span class="math inline">\(z\)</span>，应用注意力的方法也非常简单，直接将feature map与attention map逐元素相乘即可，即<span class="math inline">\(h = a \otimes z\)</span>.</p>
+<p>对于高光谱图像而言，则由于其为三维数据立方体，则存在三种注意力机制：</p>
+<ul>
+<li>空间注意力（spatial attention）</li>
+<li>光谱注意力（spectral attention）</li>
+<li>空间-光谱联合注意力（spatial-spectral joint attention）</li>
+</ul>
+<p>具体形式如下图所示： <img data-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f48a7b4ccb38464d9d9dfab410e3d825~tplv-k3u1fbpfcp-watermark.image" alt="高光谱图像的三种注意力机制" /></p>
+<p>在波段选择任务中，本文希望学习得到一个波段的权重向量，能够显著的反映波段间的关系。那么从这个角度来看，波段选择也可以看作是一个光谱注意力模块。</p>
+<span id="more"></span>
+<h2 id="基本假设对应论文ii-d-motivation">1.2 基本假设（对应论文II-D Motivation）</h2>
+<p>波段选择的基本假设是整个波段集可以由少数关键的波段稀疏重构而成。一种可行的方法就是使用自监督策略训练，假设波段集可以使用如下线性self-expressive表达式进行表达 $  =  <span class="math inline">\(, 其中\)</span> ^{MN b}$ 以及 <span class="math inline">\(\mathbf{C} \in \mathbb{R}^{b \times b}\)</span>. 关系矩阵（affinity matrix）<span class="math inline">\(\mathbf{C}\)</span>表达了波段间的内在关系，因此可以使用该矩阵进行波段选择和聚类。但是这种线性表达方式面临如下三个问题：</p>
+<ol type="1">
+<li>线性的假设并不符合复杂高光谱图像的实际情况。</li>
+<li>关系矩阵<span class="math inline">\(\mathbf{C}\)</span>并不能直接反应每个波段在重建时的贡献，为了选择最优波段，仍需要进一步的处理步骤。</li>
+<li>稀疏重构只利用浅层的波段信息，没有充分利用high-level的语义信息。</li>
+</ol>
+<h1 id="网络结构">2. 网络结构</h1>
+<h2 id="总体结构">2.1 总体结构</h2>
+<figure>
+<img data-src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/43ff9a5d2e1944aeb53ac0a38fcede75~tplv-k3u1fbpfcp-watermark.image" alt="总体网络结构" /><figcaption aria-hidden="true">总体网络结构</figcaption>
+</figure>
+<p>总体网络结构如上图所示，其核心思想是首先根据原始的高光谱图像生成波段注意力模型（Band Attention Module， BAM），而后使用波段权重重采样模块（Band reweighting， BRW）对波段应用注意力，最后使用重建网络RecNet（reconstruction network）根据应用注意力后的图像重建原始图像，并使得重建误差最小化。</p>
+<p>最终的损失函数是：</p>
+<p><span class="math display">\[
+\mathcal{L}(\Theta_b, \Theta_c) = \frac{1}{2S}\sum_{i=1}^{S} ||x_i - \hat{x}_i||_2^2 + \lambda\sum_{i=1}^{S}||w_i||_1
+\]</span></p>
+<p>其中<span class="math inline">\(S\)</span>是指sample的数量，<span class="math inline">\(x_i\)</span>是input，<span class="math inline">\(\hat{x}_i\)</span> 是重建后的输出。<span class="math inline">\(w_i\)</span>是BAM计算得到的逐波段的权重，也就是注意力的情况，在实际情况中，由于是逐像素或者逐图像块进行计算，因此对于某个波段而言，其总体权重是该波段所有像素的权重和，即</p>
+<p><span class="math display">\[
+\overline{w}_j = \frac{1}{S} \sum_{i=1}^{S}w_{ij}
+\]</span></p>
+<h2 id="具体实现方法">2.2 具体实现方法</h2>
+<p>文章使用了两种具体实现方法，BS-Net-FC和BS-Net-Conv，前者是逐像素进行波段选择和波段重建，而后者则是将图像切分成小的面片，而后使用卷积网络进行重建，但总体思路上均一致，只是具体网络上有小差异。具体网络结构如下图所示。</p>
+<h3 id="bs-net-fc">BS-Net-FC</h3>
+<p><img data-src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f08d273229c3488295ea4b6e210e0bc6~tplv-k3u1fbpfcp-watermark.image" /></p>
+<h3 id="bs-net-conv">BS-Net-Conv</h3>
+<p><img data-src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2547d488c3cf4cb8b3931ee46bf967a0~tplv-k3u1fbpfcp-watermark.image" /></p>
+<h1 id="实现">3. 实现</h1>
+<p>作者使用Tensorflow的实现：https://github.com/AngryCai/BS-Nets</p>
+<p>我使用pytorch的实现：https://github.com/whuhenry/bsnet_pytorch</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/2553f112/" title="论文笔记——BS-Nets An End-to-End Framework for Band Selection of Hyperspectral Image">https://whuhenry.github.io/posts/2553f112/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0/" rel="tag"># 论文笔记</a>
+              <a href="/tags/%E6%B3%A2%E6%AE%B5%E9%80%89%E6%8B%A9/" rel="tag"># 波段选择</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/26f44a16/" rel="prev" title="论文笔记——DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection">
+                  <i class="fa fa-chevron-left"></i> 论文笔记——DARecNet-BS: Unsupervised Dual-Attention Reconstruction Network for Hyperspectral Band Selection
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/b68ee30/" rel="next" title="论文笔记-Self-Supervised Learning With Adaptive Distillation for Hyperspectral Image Classification">
+                  论文笔记-Self-Supervised Learning With Adaptive Distillation for Hyperspectral Image Classification <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{&quot;enable&quot;:true,&quot;tags&quot;:&quot;none&quot;,&quot;js&quot;:{&quot;url&quot;:&quot;https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;npm&#x2F;mathjax@3.1.4&#x2F;es5&#x2F;tex-mml-chtml.js&quot;,&quot;integrity&quot;:&quot;sha256-ncNI9OXOS5Ek4tzVYiOMmN&#x2F;KKCPZ6V0Cpv2P&#x2F;zHntiA&#x3D;&quot;}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
