@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"whuhenry.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本文主要研究内容：提出了一个系统的图像镶嵌方法，用来生成环境监测应用所需的高光谱图像。原始图像是来自于新兴的无人机推扫式高光谱相机拍摄获得的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文笔记-Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring">
+<meta property="og:url" content="https://whuhenry.github.io/posts/3abada6d/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:description" content="本文主要研究内容：提出了一个系统的图像镶嵌方法，用来生成环境监测应用所需的高光谱图像。原始图像是来自于新兴的无人机推扫式高光谱相机拍摄获得的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/3abada6d/image-20211124221802016.png">
+<meta property="article:published_time" content="2021-11-24T14:05:08.000Z">
+<meta property="article:modified_time" content="2021-11-24T14:22:27.403Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="高光谱">
+<meta property="article:tag" content="图像镶嵌">
+<meta property="article:tag" content="几何校正">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/3abada6d/image-20211124221802016.png">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/3abada6d/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://whuhenry.github.io/posts/3abada6d/","path":"posts/3abada6d/","title":"论文笔记-Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>论文笔记-Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-text">0. 基本信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-text">1. 主要研究内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AB%98%E5%85%89%E8%B0%B1%E5%9B%BE%E5%83%8F%E5%87%A0%E4%BD%95%E5%92%8C%E8%BE%90%E5%B0%84%E6%A0%A1%E6%AD%A3%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="nav-text">2. 高光谱图像几何和辐射校正的重要性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E6%AD%A5%E9%AA%A4"><span class="nav-text">3. 主要步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AF%A5%E6%9C%BA%E6%96%B9%E5%90%91"><span class="nav-text">4. 未来可能的该机方向</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/3abada6d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文笔记-Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-11-24 22:05:08 / 修改时间：22:22:27" itemprop="dateCreated datePublished" datetime="2021-11-24T22:05:08+08:00">2021-11-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%AB%98%E5%85%89%E8%B0%B1/" itemprop="url" rel="index"><span itemprop="name">高光谱</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div class="note info"><p>本文主要研究内容：提出了一个系统的图像镶嵌方法，用来生成环境监测应用所需的高光谱图像。原始图像是来自于新兴的无人机推扫式高光谱相机拍摄获得的。</p>
+</div>
+<span id="more"></span>
+<h1 id="基本信息">0. 基本信息</h1>
+<ul>
+<li>引用信息</li>
+</ul>
+<blockquote>
+<p>Yi, L., Chen, J. M., Zhang, G., Xu, X., Ming, X., &amp; Guo, W. (2021). Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring. <em>Remote Sensing</em>, <em>13</em>(22). https://doi.org/10.3390/rs13224720</p>
+</blockquote>
+<ul>
+<li>bibtex</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@article&#123;Yi2021,</span><br><span class="line">  author   = &#123;Lina Yi and Jing M Chen and Guifeng Zhang and Xiao Xu and Xing Ming and Wenji Guo&#125;,</span><br><span class="line">  doi      = &#123;10.3390/rs13224720&#125;,</span><br><span class="line">  issn     = &#123;2072-4292&#125;,</span><br><span class="line">  issue    = &#123;22&#125;,</span><br><span class="line">  journal  = &#123;Remote Sensing&#125;,</span><br><span class="line">  title    = &#123;Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring&#125;,</span><br><span class="line">  volume   = &#123;13&#125;,</span><br><span class="line">  url      = &#123;https://www.mdpi.com/2072-4292/13/22/4720&#125;,</span><br><span class="line">  year     = &#123;2021&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="主要研究内容">1. 主要研究内容</h1>
+<p>提出了一个系统的图像镶嵌方法，用来生成环境监测应用所需的高光谱图像。原始图像是来自于新兴的无人机推扫式高光谱相机拍摄获得的。</p>
+<h1 id="高光谱图像几何和辐射校正的重要性">2. 高光谱图像几何和辐射校正的重要性</h1>
+<p>在获取高光谱数据时，通常需要无人机在较低的高度飞行，因此会导致获取的数据产生几何和辐射畸变，例如像素位移误差，或者由于smile effect（参见<a target="_blank" rel="noopener" href="https://www.specim.fi/smile-and-keystone/">Smile and keystone - Specim</a>）导致的光谱噪声。因此在光谱复杂环境条件下采集的高光谱图像的后处理面临多项挑战。为了覆盖整个研究区域，实践中需要采集多景高光谱图像，且图像间需要保证一定的重叠度。此时，对UAV采集的高光谱图像进行镶嵌，生成具有高几何精度和辐射精度的高光谱图像，是一项最终重要的处理步骤，从而保证最终的图像能够满足遥感环境监测应用的要求。然而，由于线阵推扫成像系统是一项新兴的成像技术，且成本高昂，因此目前只有极少数研究涉及无人机搭载线阵推扫高光谱成像仪获得图像的拼接。</p>
+<p>一般来说，几何校正和辐射校正是UAV高光谱图像镶嵌中的两个关键步骤。在几何校正步骤中，不同位置和姿态条件下获得的图像应该投影到一个统一的参考平面上。在辐射校正步骤中，几何校正后图像间的亮度不一致应该降到最低。最后辐射校正后的多景图像应该融合生成一景镶嵌后图像。镶嵌图像的几何精度取决于几何校正的准确性，而辐射精度则受到传感器定标、辐射校正和图像融合处理过程的影响。</p>
+<h1 id="主要步骤">3. 主要步骤</h1>
+<ol type="1">
+<li><p>数据条带采集</p></li>
+<li><p>对每个数据条带进行geo-referencing，获得初始几何校正后图像。</p></li>
+<li><p>使用地面控制点结合曲面样条函数（curved surface spline function），进行进一步的图像几何校正，提高精度。</p></li>
+<li><p>为了进一步消除图像间的偏差，使用相位校正、SIFT、RANSAC进行图像匹配。</p></li>
+<li><p>最后使用加权平均，以及最高的图像融合算法，消除光谱差异，实现无缝拼接。</p></li>
+</ol>
+<p><img data-src="image-20211124221802016.png" alt="总体流程图" /></p>
+<h1 id="未来可能的该机方向">4. 未来可能的该机方向</h1>
+<ol type="1">
+<li>GCP分布和精度对最终几何校正精度的影响、</li>
+<li>图像匹配时的波段选择方法</li>
+<li>辐射定标和准确的反射率数据</li>
+<li>大数据多谱段数据并行处理</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/3abada6d/" title="论文笔记-Seamless Mosaicking of UAV-Based Push-Broom Hyperspectral Images for Environment Monitoring">https://whuhenry.github.io/posts/3abada6d/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%AB%98%E5%85%89%E8%B0%B1/" rel="tag"># 高光谱</a>
+              <a href="/tags/%E5%9B%BE%E5%83%8F%E9%95%B6%E5%B5%8C/" rel="tag"># 图像镶嵌</a>
+              <a href="/tags/%E5%87%A0%E4%BD%95%E6%A0%A1%E6%AD%A3/" rel="tag"># 几何校正</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/2af8056e/" rel="prev" title="如何搜索和免注册下载专利文档">
+                  <i class="fa fa-chevron-left"></i> 如何搜索和免注册下载专利文档
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
