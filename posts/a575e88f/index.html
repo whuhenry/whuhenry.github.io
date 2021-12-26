@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"whuhenry.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.8.1","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客翻译：神经辐射场模型爆炸式增长">
+<meta property="og:url" content="https://whuhenry.github.io/posts/a575e88f/index.html">
+<meta property="og:site_name" content="成长印记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://whuhenry.github.io/posts/a575e88f/121621_Neural-Radiance.large.jpg">
+<meta property="article:published_time" content="2021-12-26T08:12:10.000Z">
+<meta property="article:modified_time" content="2021-12-26T09:52:15.296Z">
+<meta property="article:author" content="闫钊">
+<meta property="article:tag" content="三维重建">
+<meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="翻译">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://whuhenry.github.io/posts/a575e88f/121621_Neural-Radiance.large.jpg">
+
+
+<link rel="canonical" href="https://whuhenry.github.io/posts/a575e88f/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://whuhenry.github.io/posts/a575e88f/","path":"posts/a575e88f/","title":"博客翻译：神经辐射场模型爆炸式增长"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>博客翻译：神经辐射场模型爆炸式增长 | 成长印记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?ae3dae40b1e5e61b865165dff56839f8"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">成长印记</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="闫钊"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">闫钊</p>
+  <div class="site-description" itemprop="description">关于遥感、计算机视觉的各种严肃的、好玩的东西的分享</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/whuhenry" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;whuhenry" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:whuhenry@gmail.com" title="E-Mail → mailto:whuhenry@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuhenry.github.io/posts/a575e88f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="闫钊">
+      <meta itemprop="description" content="关于遥感、计算机视觉的各种严肃的、好玩的东西的分享">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="成长印记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          博客翻译：神经辐射场模型爆炸式增长
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-26 16:12:10 / 修改时间：17:52:15" itemprop="dateCreated datePublished" datetime="2021-12-26T16:12:10+08:00">2021-12-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">深度学习</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="/posts/a575e88f/121621_Neural-Radiance.large.jpg" class="" title="基于神经辐射场的场景表示方法">
+<span id="more"></span>
+<p>原文地址：<a target="_blank" rel="noopener" href="https://cacm.acm.org/magazines/2022/1/257453-technical-perspective-neural-radiance-fields-explode-on-the-scene/fulltext">Technical Perspective: Neural Radiance Fields Explode on the Scene | January 2022 | Communications of the ACM</a></p>
+<p>假设你可以捕获一个3D场景的信息，而且能够从不同的视角重复浏览这个场景，甚至可以看到场景捕获时展开的动作。传统情况下，我们习惯于获取2D的图像或者视频，他们能够完整的保存在我们的手机上或者云端服务器上，这个过程十分简单。与之对应的是，捕获一个场景的3D信息则是十分繁琐的。一般来说，这个过程包括获取场景的大量图像，使用摄影测量技术来重建一个密集表面模型，然后人工清理场景中的噪声和错误。最终的结果可以是十分震撼的，可以表达出仅使用2D图像无法传递的场景感受，例如纽约时报最新上线的交互功能就是一个典型的例子。</p>
+<p>最新，许多研究人员开始探索深度神经网络革命能否使得每个人都有捕获这样3D场景的能力，使其变得像拍摄照片一样轻松。一项在2020年由论文“Newral Radiance Fields（NeRF）”引发的创新型的技术——神经体渲染（Neural Volume Rendering），抢占了人们的注意力。这项全新的技术接受多张图像作为输入，生成一个使用深度全连接网络进行存储的3D场景紧凑表示方法，该神经网络的全局可以存储在一个不比一般压缩图像大多少的文件中。通过这种表示和记录方法，该模型可以令人惊讶的精度和细节渲染出场景任意视角的图像。</p>
+<p><strong>神经体渲染</strong>指的是一种深度图像或者视频生成方法，这种方法追踪场景的光线信息，按照一定长度对光线进行积分来生成最终的图像。一般来说，一个全连接神经网络能够在三维坐标系统中对光线的强度、颜色等信息进行编码生成一个函数，随后对该函数进行积分即可生成渲染图像。一篇早期研究是，Lombardi et al.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>在视景合成论文中提出了神经体渲染方法，该论文中虽然还是基于体素的表达方法，但是使用神经网络表示三维体的亮度和颜色信息。</p>
+<p>与NeRF直接相关前置工作是使用神经网络定义了一个3D隐表面表示方法。许多利用3D信息的图像生成方法使用体素、三维模型、点云或其他传统表示方法。但是在CVPR 2019会议上，至少有3篇文章提出使用神经网络作为一个方程的近似，来定义空间的占用（occupancy）或者符号距离函数（signed distance function），这3篇论文是：occupancy networks<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, IM-Net<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>以及DeepSDF<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>。直到今天，依然有许多论文基于隐函数思想来实现。</p>
+<p>但是，NeRF是最受大家关注的一篇论文。本质上来说，Mildenhall et al. 使用DeepSDF网络结构，但是直接回归出亮度和颜色信息。然后，他们使用一个简单的可微的数值积分方法来近似模拟一个真正的体渲染步骤。一个NeRF模型使用MLP的权重来表达和存储三维场景，这个网络使用已知位姿的图像训练获得。新视角的图像则是通过每条视线上的亮度和颜色的等间隔积分来渲染生成。</p>
+<p>NeRF文章最早是2020年3月被放到Arxiv上的，并立刻引起了广泛的关注，不仅是因为该方法能够渲染出高质量的场景图像，而且在深度图上也显示出了惊人的细节。这篇文章的成功可能主要是取决于他的简约性：使用一个多层感知机MLP，接受5D坐标作为输入，输出亮度和颜色。当然还有一些小的改进点，包括位置编码以及分层采样方案。许多研究人员都对如此一个简单的结构能够实现这么好的效果感到惊讶。另一个原因是，“vanilla（翻译：平常的，普通的） NeRF”文章提供了很多可以改进的点。包括这个网络十分慢，包括训练和渲染都很慢；此外这个网络只能表示静态场景；这个网络将场景“烘焙”（bakes in）成光线；以及这个网络是基于场景的，而不是通用的。</p>
+<p>在快速发展的计算机视觉社区中，这些机会几乎立刻就被利用和改进了。有几篇文章和数个项目重点提高训练和渲染效率；还有许多工作着眼于将该方法应用于动态场景，使用许多不同的方法，使得从不同视角渲染视频成为可能。另一个NeRF类方法的增强方向是如何处理光线。传统是使用潜在代码（latent code）来重新渲染场景。然而很多研究这提出使用latent codes生成形状，从而可以减少训练使用的图像数量。最后，一个最新的研究方向是如和支持压缩，从而能够存储更加复杂和动态的场景。</p>
+<p>总结起来，神经体渲染收到了计算机视觉社区的广泛关注，可以期待在不久将来，研究成果可以使得其真正可以部署到每个人的智能手机上。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Lombardi, S. et al. Neural volumes: Learning dynamic renderable volumes from images. <em>ACM Trans. Graph.</em> (2019).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Mescheder, L. et al. A. Occupancy Networks: Learning 3D reconstruction in function space. In <em>Proceedings of the IEEE/CVF Conf. Computer Vision and Pattern Recognition</em>, 2019.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Chen, Z. and Zhang, H. Learning implicit fields for generative shape modeling. In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 2019, 5939–5948.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>Park, J.J. et al. DeepSDF: Learning continuous signed distance functions for shape representation. In <em>Proceedings of the IEEE/CVF Conf. Computer Vision and Pattern Recognition</em>, 2019, 165–174.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>闫钊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://whuhenry.github.io/posts/a575e88f/" title="博客翻译：神经辐射场模型爆炸式增长">https://whuhenry.github.io/posts/a575e88f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA/" rel="tag"># 三维重建</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 深度学习</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/edd44bb/" rel="prev" title="论文笔记-Automated Georectification and Mosaicking of UAV-Based Hyperspectral Imagery from Push-Broom Sensors">
+                  <i class="fa fa-chevron-left"></i> 论文笔记-Automated Georectification and Mosaicking of UAV-Based Hyperspectral Imagery from Push-Broom Sensors
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闫钊</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js","integrity":"sha256-r+3itOMtGGjap0x+10hu6jW/gZCzxHsoKrOd7gyRSGY="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
